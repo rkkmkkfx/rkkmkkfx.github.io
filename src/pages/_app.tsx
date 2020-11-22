@@ -2,6 +2,8 @@
 import type { AppProps /*, AppContext */ } from 'next/app'
 import Base from '../components/Base'
 
+import '../components/App.global.css';
+
 function MyApp({ Component, pageProps }: AppProps) {
   return (
     <Base>
