@@ -10,17 +10,10 @@ interface BaseProps {
 }
 
 const Base: React.VFC<BaseProps> = ({ children }) => {
-  const [contentHeight, setContentHeight] = useState(0);
-
-  useEffect(() => {
-    setContentHeight(window.innerHeight - (document.querySelector('header').offsetHeight + document.querySelector('footer').offsetHeight))
-  }, []);
   return (
     <>
       <Header />
-      <main className={styles.wrapper} style={{
-        maxHeight: `${contentHeight}px`
-      }}>
+      <main className={styles.wrapper}>
         {children}
       </main>
       <Footer />

@@ -1,8 +1,9 @@
 import Link from 'next/link';
 import Base from '../components/Base';
+import Tech from '../components/Tech';
 
 const Home = () => (
-  <div>Hello World. <Link href='/about'><a>About</a></Link></div>
+  <Tech />
 );
 
 export default Home;

@@ -5,6 +5,9 @@
 const debug = process.env.NODE_ENV !== "production";
 
 module.exports = {
+  images: {
+    domains: ['upload.wikimedia.org', 'raw.githubusercontent.com', 'geosrbija.rs'],
+  },
   exportPathMap: function () {
     return {
       "/": { page: "/" },
