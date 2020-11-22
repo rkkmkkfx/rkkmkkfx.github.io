@@ -3,10 +3,16 @@
   display: grid;
   grid-template-rows: 1fr 1fr 1fr;
   grid-template-columns: 1fr 1fr 1fr;
-  grid-gap: 2vw;
+  grid-gap: 5vw;
+}
+
+.cell {
+  display: inline-grid;
+  align-items: center;
 }
 
 .img {
-  align-self: center;
-  justify-self: center;
+  object-fit: contain;
+  width: 100%;
+  max-height: 100px;
 }

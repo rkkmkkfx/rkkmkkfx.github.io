@@ -1,9 +1,7 @@
 import Link from 'next/link';
-import Base from '../components/Base';
-import Tech from '../components/Tech';
 
 const Home = () => (
-  <Tech />
+  <h1>Hi there</h1>
 );
 
 export default Home;

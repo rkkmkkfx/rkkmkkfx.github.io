@@ -1,11 +1,9 @@
 /* The component style is inserted here. */
 .root {
-  bottom: 0;
-  width: 90%;
+  grid-area: footer;
   height: 60px;
   padding: 0 5%;
   display: flex;
-  position: fixed;
   background: #fff;
   align-items: center;
   justify-content: space-between;

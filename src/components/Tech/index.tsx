@@ -20,7 +20,11 @@ const techs = [
 const Tech: React.FC = () => {
   return (
     <section className={styles.root}>
-      {techs.map(tech => <Image className={styles.img} src={tech} layout="intrinsic" width={100} height={100} />)}
+      {techs.map(tech => (
+        <div className={styles.cell}>
+          <img className={styles.img} src={tech} />
+        </div>
+      ))}
     </section>
   );
 };

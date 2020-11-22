@@ -1,12 +1,12 @@
 /* The component style is inserted here. */
 .root {
-  top: 0;
-  width: 90%;
+  grid-area: header;
   height: 60px;
   padding: 0 5%;
   display: flex;
-  position: fixed;
   background: #fff;
+  position: sticky;
+  top: 0;
   align-items: center;
   justify-content: space-between;
 }
