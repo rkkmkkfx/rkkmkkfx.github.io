@@ -1,6 +1,5 @@
 import React from 'react';
-import Image from 'next/image';
-import styles from './Tech.module.css';
+import styles from './Skills.module.css';
 
 const techs = [
   'https://upload.wikimedia.org/wikipedia/commons/6/61/HTML5_logo_and_wordmark.svg',
@@ -17,16 +16,14 @@ const techs = [
   'https://upload.wikimedia.org/wikipedia/commons/c/c5/Nginx_logo.svg',
 ];
 
-const Tech: React.FC = () => {
-  return (
-    <section className={styles.root}>
-      {techs.map(tech => (
-        <div className={styles.cell}>
-          <img className={styles.img} src={tech} />
-        </div>
-      ))}
-    </section>
-  );
-};
+const Skills: React.FC = () => (
+  <section className={styles.root}>
+    {techs.map((tech) => (
+      <div className={styles.cell}>
+        <img className={styles.img} src={tech} alt="" />
+      </div>
+    ))}
+  </section>
+);
 
-export default Tech;
+export default Skills;

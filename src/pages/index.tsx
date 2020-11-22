@@ -1,8 +1,8 @@
-import Link from 'next/link';
+import React from 'react';
 import Heading from '../components/Greetings';
 
-const Home = () => (
+const HomePage = () => (
   <Heading text={['Hello', 'There']} />
 );
 
-export default Home;
+export default HomePage;
