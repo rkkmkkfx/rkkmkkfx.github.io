@@ -3,7 +3,7 @@ import React from 'react';
 import Header from '../Header';
 import Footer from '../Footer';
 
-import './Base.module.css';
+import styles from './Base.module.css';
 
 interface BaseProps {
   children: React.ReactNode
@@ -12,7 +12,7 @@ interface BaseProps {
 const Base: React.VFC<BaseProps> = ({ children }) => (
   <>
     <Header />
-    <main styleName="wrapper">
+    <main className={styles.wrapper}>
       {children}
     </main>
     <Footer />
