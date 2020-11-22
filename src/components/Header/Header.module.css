@@ -1,7 +1,13 @@
 /* The component style is inserted here. */
 .root {
-  padding: 20px 5%;
+  top: 0;
+  width: 90%;
+  height: 60px;
+  padding: 0 5%;
   display: flex;
+  position: fixed;
+  background: #fff;
+  align-items: center;
   justify-content: space-between;
 }
 

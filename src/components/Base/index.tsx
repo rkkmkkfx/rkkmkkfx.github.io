@@ -19,7 +19,7 @@ const Base: React.VFC<BaseProps> = ({ children }) => {
     <>
       <Header />
       <main className={styles.wrapper} style={{
-        height: `${contentHeight}px`
+        maxHeight: `${contentHeight}px`
       }}>
         {children}
       </main>

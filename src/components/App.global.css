@@ -9,10 +9,19 @@
 
 body {
   margin: 0;
+  height: 100vh;
   font-family: var(--fontFamily);
   font-weight: var(--fontWeight);
   font-size: var(--fontSize);
-  box-sizing: 'border-box';
   --webkit-text-size-adjust: 'none';
   text-size-adjust: 'none';
+}
+
+body * {
+  box-sizing: 'border-box';
+}
+
+body > div {
+  height: 100%;
+  position: relative;
 }
