@@ -1,9 +1,9 @@
-@import url('https://fonts.googleapis.com/css2?family=Roboto+Condensed&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@400;700&display=swap');
 
 :root {
   --fontFamily: 'Roboto Condensed', sans-serif;
   --fontWeight: 300;
-  --fontSize: 16px;
+  --fontSize: 20px;
   --letterSpacing: 0.025em;
 }
 

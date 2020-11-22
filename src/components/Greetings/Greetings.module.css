@@ -1,0 +1,18 @@
+/* The component style is inserted here. */
+.root {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  height: 100%;
+}
+
+.heading {
+  display: grid;
+}
+
+.line {
+  font-size: 12rem;
+}
+
+.line:last-child {
+  text-align: right;
+}

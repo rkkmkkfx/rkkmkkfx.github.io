@@ -5,7 +5,10 @@ import styles from './Header.module.css';
 
 const Header = () => (
   <header className={styles.root}>
-    <div className="logo">rkkmkkfx.dev</div>
+    <div className={styles.logo}>
+      <img src="static/img/logo.svg" alt="" />
+      rkkmkkfx.dev
+    </div>
     <nav>
       <Link href='/'><a className={styles.navLink}>Home</a></Link>
       <Link href='/techs'><a className={styles.navLink}>Techs</a></Link>

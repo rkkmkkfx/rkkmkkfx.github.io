@@ -1,7 +1,8 @@
 import Link from 'next/link';
+import Heading from '../components/Greetings';
 
 const Home = () => (
-  <h1>Hi there</h1>
+  <Heading text={['Hello', 'There']} />
 );
 
 export default Home;

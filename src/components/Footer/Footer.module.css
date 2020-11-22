@@ -8,3 +8,10 @@
   align-items: center;
   justify-content: space-between;
 }
+
+.logo {
+  img {
+    max-height: 30px;
+    fill: #fcc
+  }
+}

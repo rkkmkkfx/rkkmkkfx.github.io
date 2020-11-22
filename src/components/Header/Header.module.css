@@ -11,6 +11,12 @@
   justify-content: space-between;
 }
 
+.logo {
+  img {
+    max-height: 30px;
+  }
+}
+
 .navLink {
   padding: 20px;
 }
