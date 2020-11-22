@@ -2,7 +2,12 @@ import React from 'react';
 
 import styles from './Greetings.module.css';
 
-const Heading: React.FC = ({ text, imgSrc }) => {
+interface Props {
+  text: string[];
+  imgSrc?: string;
+}
+
+const Greetings: React.FC<Props> = ({ text, imgSrc }) => {
   return (
     <div className={styles.root}>
       <h1 className={styles.heading}>
@@ -13,4 +18,4 @@ const Heading: React.FC = ({ text, imgSrc }) => {
   );
 };
 
-export default Heading;
+export default Greetings;
