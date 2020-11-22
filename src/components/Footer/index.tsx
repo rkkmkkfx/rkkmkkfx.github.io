@@ -3,8 +3,8 @@ import React from 'react';
 import styles from './Footer.module.css';
 
 const Footer: React.FC = () => (
-  <footer>
-    <h1>Footer</h1>
+  <footer className={styles.root}>
+    <div className={styles.logo}>rkkmkkfx.dev</div>
   </footer>
 );
 

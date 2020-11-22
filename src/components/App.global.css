@@ -1,11 +1,14 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Condensed&display=swap');
+
 :root {
-  --fontFamily: 'Helvetica', sans-serif;
+  --fontFamily: 'Roboto Condensed', sans-serif;
   --fontWeight: 300;
   --fontSize: 16px;
   --letterSpacing: 0.025em;
 }
 
-.app {
+body {
+  margin: 0;
   font-family: var(--fontFamily);
   font-weight: var(--fontWeight);
   font-size: var(--fontSize);

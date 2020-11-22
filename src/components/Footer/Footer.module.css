@@ -1,1 +1,6 @@
 /* The component style is inserted here. */
+.root {
+  padding: 20px 5%;
+  display: flex;
+  justify-content: space-between;
+}

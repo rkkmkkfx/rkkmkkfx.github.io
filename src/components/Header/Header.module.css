@@ -1,4 +1,10 @@
 /* The component style is inserted here. */
 .root {
-  background: #333;
+  padding: 20px 5%;
+  display: flex;
+  justify-content: space-between;
+}
+
+.navLink {
+  padding: 20px;
 }
