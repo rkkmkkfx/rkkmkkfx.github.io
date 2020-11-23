@@ -8,12 +8,12 @@ interface Props {
   imgSrc?: string;
 }
 
-const Greetings: React.FC<Props> = ({ text, imgSrc }) => (
+const Greetings: React.FC<Props> = ({ text, image }) => (
   <div className={styles.root}>
     <h1 className={styles.heading}>
       {text.map((line) => (<span key={uuidv4()} className={styles.line}>{line}</span>))}
     </h1>
-    {imgSrc && <img src={imgSrc} alt="" />}
+    {image && <div className={styles.image}>{image}</div>}
   </div>
 );
 

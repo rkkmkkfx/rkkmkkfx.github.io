@@ -3,5 +3,7 @@
   grid-area: main;
   padding: 60px 0;
   margin: auto;
+  width: 100%;
   max-width: 96vw;
+  text-align: center;
 }
