@@ -5,7 +5,7 @@ import styles from './Greetings.module.css';
 
 interface Props {
   text: string[];
-  imgSrc?: string;
+  image?: React.ReactNode;
 }
 
 const Greetings: React.FC<Props> = ({ text, image }) => (
