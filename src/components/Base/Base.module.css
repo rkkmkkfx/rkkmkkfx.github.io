@@ -1,7 +1,7 @@
 /* The component style is inserted here. */
 .wrapper {
   grid-area: main;
-  max-width: 90%;
   padding: 60px 0;
   margin: auto;
+  max-width: 96vw;
 }
