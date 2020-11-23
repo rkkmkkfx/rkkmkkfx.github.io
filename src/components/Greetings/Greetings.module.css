@@ -10,7 +10,11 @@
 }
 
 .line {
-  font-size: 12rem;
+  font-size: 8rem;
+
+  @media (width >= 768px) {
+    font-size: 12rem;
+  }
 }
 
 .line:last-child {

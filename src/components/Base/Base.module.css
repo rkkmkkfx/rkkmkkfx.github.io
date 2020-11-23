@@ -2,5 +2,6 @@
 .wrapper {
   grid-area: main;
   max-width: 90%;
-  padding: 100px 5%;
+  padding: 60px 0;
+  margin: auto;
 }

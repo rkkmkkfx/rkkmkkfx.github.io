@@ -1,4 +1,6 @@
 import React from 'react';
+import { v4 as uuidv4 } from 'uuid';
+
 import styles from './Skills.module.css';
 
 const techs = [
@@ -19,7 +21,7 @@ const techs = [
 const Skills: React.FC = () => (
   <section className={styles.root}>
     {techs.map((tech) => (
-      <div className={styles.cell}>
+      <div key={uuidv4()} className={styles.cell}>
         <img className={styles.img} src={tech} alt="" />
       </div>
     ))}
