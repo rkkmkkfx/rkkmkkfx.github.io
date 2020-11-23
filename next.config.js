@@ -12,6 +12,8 @@ module.exports = {
     return {
       '/': { page: '/' },
       '/about': { page: '/about' },
+      '/skills': { page: '/skills' },
+      '/work': { page: '/work' },
     };
   },
   // assetPrefix: '',
