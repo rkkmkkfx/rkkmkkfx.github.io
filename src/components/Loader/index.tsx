@@ -4,6 +4,32 @@ import React, { useRef, useEffect } from 'react';
 import styles from './Loader.module.css';
 
 class Particles {
+  colors: string[];
+
+  blurry: boolean;
+
+  border: boolean;
+
+  minRadius: number;
+
+  maxRadius: number;
+
+  minOpacity: number;
+
+  maxOpacity: number;
+
+  minSpeed: number;
+
+  maxSpeed: number;
+
+  fps: number;
+
+  numParticles: number;
+
+  canvas: HTMLCanvasElement;
+
+  ctx: CanvasRenderingContext2D;
+
   constructor(canvas) {
     // particle colors
     this.colors = [
@@ -32,14 +58,14 @@ class Particles {
     // frames per second
     this.fps = 120;
     // number of particles
-    this.numParticles = 250;
+    this.numParticles = 500;
     // required canvas variables
     this.canvas = canvas;
     this.ctx = this.canvas.getContext('2d');
   }
 
   init() {
-    this.render();
+    this.resize();
     this.createCircle();
   }
 
@@ -47,14 +73,16 @@ class Particles {
     return Math.random() * (max - min) + min;
   }
 
-  render() {
-    const wHeight = this.canvas.parentNode.offsetHeight;
-    const wWidth = this.canvas.parentNode.offsetWidth;
+  resize() {
+    console.log(this);
+
+    const wHeight = this.canvas.parentElement.offsetHeight;
+    const wWidth = this.canvas.parentElement.offsetWidth;
 
     this.canvas.width = wWidth;
     this.canvas.height = wHeight;
 
-    window.addEventListener('resize', this.render);
+    window.addEventListener('resize', this.resize.bind(this));
   }
 
   createCircle() {
@@ -119,7 +147,7 @@ class Particles {
       this.clearCanvas();
       // then redraws particles in new positions based on velocity
       for (let i = 0; i < this.numParticles; i++) {
-        particle[i].xPos += Math.sin(particle[i].xVelocity);
+        particle[i].xPos += particle[i].xVelocity / 2;
         particle[i].yPos -= Math.cos(particle[i].yVelocity);
 
         // if particle goes off screen call reset method to place it offscreen to the left/bottom
