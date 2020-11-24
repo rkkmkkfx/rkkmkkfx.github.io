@@ -18,11 +18,10 @@ function MyApp({ Component, pageProps }: AppProps) {
         <link rel="mask-icon" href="/static/favicon/safari-pinned-tab.svg" color="#5bbad5" />
         <meta name="msapplication-TileColor" content="#da532c" />
         <meta name="theme-color" content="#ffffff" />
+        <YMInitializer accounts={[69723304]} options={{ defer: true, webvisor: true }} version="2" />
       </Head>
       <Base>
         <Component {...pageProps} />
-
-        <YMInitializer accounts={[69723304]} />
       </Base>
     </>
   );
