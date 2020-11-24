@@ -1,5 +1,7 @@
 import React from 'react';
 import type { AppProps /* , AppContext */ } from 'next/app';
+import { YMInitializer } from 'react-yandex-metrika';
+
 import Base from '../components/Base';
 
 import '../components/App.global.css';
@@ -19,6 +21,8 @@ function MyApp({ Component, pageProps }: AppProps) {
       </Head>
       <Base>
         <Component {...pageProps} />
+
+        <YMInitializer accounts={[69723304]} />
       </Base>
     </>
   );
