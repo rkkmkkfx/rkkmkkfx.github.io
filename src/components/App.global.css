@@ -23,7 +23,7 @@ body * {
   box-sizing: border-box;
 }
 
-body > div {
+body > #__next {
   height: 100%;
   position: relative;
   display: grid;

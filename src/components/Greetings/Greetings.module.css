@@ -1,7 +1,7 @@
 /* The component style is inserted here. */
 .root {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: repeat(auto-fit, minmax(360px, 1fr));
   height: 100%;
 }
 
@@ -40,7 +40,7 @@
 }
 
 .line {
-  font-size: 8rem;
+  font-size: 7rem;
 
   @media (width >= 768px) {
     font-size: 12rem;

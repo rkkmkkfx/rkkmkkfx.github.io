@@ -1,38 +1,52 @@
+/* eslint-disable no-param-reassign */
+/* eslint-disable no-underscore-dangle */
 /* eslint-disable react/no-this-in-sfc */
 import React, { useRef, useEffect } from 'react';
 
 import styles from './Loader.module.css';
 
 class Particles {
+  // particle colors
   colors: string[];
 
+  // adds gradient to particles on true
   blurry: boolean;
 
+  // adds white border
   border: boolean;
 
+  // particle radius min
   minRadius: number;
 
+  // particle radius max
   maxRadius: number;
 
+  // particle opacity min
   minOpacity: number;
 
+  // particle opacity max
   maxOpacity: number;
 
+  // particle speed min
   minSpeed: number;
 
+  // particle speed max
   maxSpeed: number;
 
+  // frames per second
   fps: number;
 
+  // number of particles
   numParticles: number;
 
+  // canvas element
   canvas: HTMLCanvasElement;
 
+  // canvas context
   ctx: CanvasRenderingContext2D;
 
-  constructor(canvas) {
-    // particle colors
-    this.colors = [
+  constructor(canvas, {
+    colors = [
       '245, 227, 224',
       '232, 180, 188',
       '227, 113, 109',
@@ -41,25 +55,29 @@ class Particles {
       '110, 69, 85',
       '58, 50, 56',
       '19, 19, 19',
-    ];
-    // adds gradient to particles on true
-    this.blurry = true;
-    // adds white border
-    this.border = false;
-    // particle radius min/max
-    this.minRadius = 10;
-    this.maxRadius = 35;
-    // particle opacity min/max
-    this.minOpacity = 0.1;
-    this.maxOpacity = 0.5;
-    // particle speed min/max
-    this.minSpeed = 0.05;
-    this.maxSpeed = 0.5;
-    // frames per second
-    this.fps = 120;
-    // number of particles
-    this.numParticles = 500;
-    // required canvas variables
+    ],
+    blurry = true,
+    border = false,
+    minRadius = 10,
+    maxRadius = 35,
+    minOpacity = 0.1,
+    maxOpacity = 0.5,
+    minSpeed = 0.05,
+    maxSpeed = 0.5,
+    fps = 120,
+    numParticles = 500,
+  }) {
+    this.colors = colors;
+    this.blurry = blurry;
+    this.border = border;
+    this.minRadius = minRadius;
+    this.maxRadius = maxRadius;
+    this.minOpacity = minOpacity;
+    this.maxOpacity = maxOpacity;
+    this.minSpeed = minSpeed;
+    this.maxSpeed = maxSpeed;
+    this.fps = fps;
+    this.numParticles = numParticles;
     this.canvas = canvas;
     this.ctx = this.canvas.getContext('2d');
   }
@@ -69,13 +87,12 @@ class Particles {
     this.createCircle();
   }
 
+  // eslint-disable-next-line class-methods-use-this
   _rand(min, max) {
     return Math.random() * (max - min) + min;
   }
 
   resize() {
-    console.log(this);
-
     const wHeight = this.canvas.parentElement.offsetHeight;
     const wWidth = this.canvas.parentElement.offsetWidth;
 
@@ -89,6 +106,7 @@ class Particles {
     const particle = [];
 
     for (let i = 0; i < this.numParticles; i++) {
+      // eslint-disable-next-line no-bitwise
       const color = this.colors[~~(this._rand(0, this.colors.length))];
 
       particle[i] = {
@@ -140,8 +158,6 @@ class Particles {
   }
 
   animate(particle) {
-    const { ctx } = this;
-
     setInterval(() => {
       // clears canvas
       this.clearCanvas();
@@ -186,7 +202,7 @@ const Loader: React.FC = (props) => {
   const canvasRef = useRef(null);
 
   const draw = (canvas) => {
-    new Particles(canvas).init();
+    new Particles(canvas, {}).init();
   };
 
   useEffect(() => {
