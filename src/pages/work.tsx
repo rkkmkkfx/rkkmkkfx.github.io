@@ -53,7 +53,7 @@ const WorkPage = () => (
       },
       {
         url: 'http://baiqal.ru',
-        header: 'Plastic Angarsk site(2015)',
+        header: '"Wave of Baikal" site(2015)',
         description: 'Template (PHP, CSS, JS) on custom CMS',
       },
     ]}
