@@ -26,7 +26,7 @@ const TinyLinks: React.FC<{ links: TinyLinkProps[] }> = ({ links }) => (
         showGraphic
         maxLine={2}
         minLine={1}
-        proxyUrl="https://rkkmkk-cors.herokuapp.com:8080/"
+        // proxyUrl="https://rkkmkk-cors.herokuapp.com:8080/"
         {...link}
       />
     ))}
