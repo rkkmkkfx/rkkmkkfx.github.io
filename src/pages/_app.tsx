@@ -1,11 +1,11 @@
 import React from 'react';
 import type { AppProps /* , AppContext */ } from 'next/app';
+import Head from 'next/head';
 import { YMInitializer } from 'react-yandex-metrika';
 
 import Base from '../components/Base';
 
 import '../components/App.global.css';
-import Head from 'next/head';
 
 function MyApp({ Component, pageProps }: AppProps) {
   return (

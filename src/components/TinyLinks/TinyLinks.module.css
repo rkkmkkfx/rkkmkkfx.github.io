@@ -1,0 +1,10 @@
+/* The component style is inserted here. */
+.root {
+  display: grid;
+  grid-gap: 2vw;
+  grid-template-columns: 1fr 1fr;
+
+  img {
+    object-fit: contain;
+  }
+}
