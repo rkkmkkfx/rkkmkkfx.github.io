@@ -1,3 +1,4 @@
+// @ts-nocheck
 import React from 'react';
 import dynamic from 'next/dynamic';
 import { v4 as uuidv4 } from 'uuid';
@@ -9,7 +10,14 @@ const ReactTinyLink = dynamic(
   { ssr: false },
 );
 
-const TinyLinks: React.FC = ({ links }) => (
+interface TinyLinkProps {
+  url: string;
+  header?: string;
+  description?: string;
+  defaultMedia?: string
+}
+
+const TinyLinks: React.FC<{ links: TinyLinkProps[] }> = ({ links }) => (
   <div className={styles.root}>
     {links && links.map((link) => (
       <ReactTinyLink
