@@ -7,8 +7,6 @@ const WorkPage = () => (
   <>
     <Head>
       <title>Work |  Sergey Baranov | Web Developer</title>
-      <meta charSet="utf-8" />
-      <meta name="viewport" content="initial-scale=1.0, width=device-width" />
     </Head>
     <h2>HTML Layout</h2>
     <TinyLinks links={[
