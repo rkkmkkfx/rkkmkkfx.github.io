@@ -1,4 +1,5 @@
 export default {
+  srcDir: 'src/',
   // Target: https://go.nuxtjs.dev/config-target
   target: 'static',
 
