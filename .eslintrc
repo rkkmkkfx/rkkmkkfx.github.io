@@ -4,25 +4,42 @@
         "es2021": true
     },
     "extends": [
-        "plugin:react/recommended",
-        "airbnb"
+        "plugin:@typescript-eslint/recommended",
+        "airbnb-typescript",
+        "plugin:@next/next/recommended"
     ],
-    "parser": "@typescript-eslint/parser",
+    "parser": "@typescript-eslint/parser", // Specifies the ESLint parser
     "parserOptions": {
         "ecmaFeatures": {
             "jsx": true
         },
-        "ecmaVersion": 12,
-        "sourceType": "module"
+        "project": "./tsconfig.json",
+        "ecmaVersion": 12, // Allows for the parsing of modern ECMAScript features
+        "sourceType": "module" // Allows for the use of imports
     },
     "plugins": [
-        "react",
-        "@typescript-eslint"
+        "react-hooks",
+        "@typescript-eslint",
+        "@next/next"
     ],
     "rules": {
+        "max-len": ["error", {
+            "code": 120,
+            "ignoreTrailingComments": true,
+            "ignoreTemplateLiterals": true,
+            "ignoreUrls": true
+        }],
+        "no-console": "off",
         "no-plusplus": "off",
+        "no-use-before-define": "off",
         "jsx-a11y/anchor-is-valid": "off",
         "import/extensions": "off",
+        "react/react-in-jsx-scope": "off",
+        "react/no-did-update-set-state": "off",
+        "react/display-name": "error",
+        "react/jsx-props-no-spreading": "off",
+        "react-hooks/rules-of-hooks": "error",
+        "react/require-default-props": "off",
         "react/jsx-filename-extension": [
             1,
             {
@@ -32,11 +49,24 @@
                 ]
             }
         ],
-        "no-use-before-define": "off",
+
+        "react-hooks/exhaustive-deps": "warn",
+
         "@typescript-eslint/no-use-before-define": [
             "error"
         ],
-        "react/jsx-props-no-spreading": "off"
+        "@typescript-eslint/no-non-null-assertion": "off",
+
+        "no-restricted-imports": [
+            "error",
+            {
+                "patterns": [
+                    "@material-ui/styles",
+                    "@material-ui/*/*/*",
+                    "!@material-ui/core/test-utils/*"
+                ]
+            }
+        ]
     },
     "settings": {
         "import/resolver": {

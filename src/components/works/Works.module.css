@@ -1,0 +1,26 @@
+/* The component style is inserted here. */
+.root {
+  display: grid;
+  grid-gap: 2vw;
+
+  .card {
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: 1fr 1fr;
+
+    .media {
+      position: relative;
+    }
+  }
+}
+
+@media (min-width: 768px) {
+  .root {
+    grid-template-columns: 1fr 1fr;
+
+    .card {
+      grid-template-rows: auto;
+      grid-template-columns: 1fr 3fr;
+    }
+  }
+}

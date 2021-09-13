@@ -1,0 +1,21 @@
+/* The component style is inserted here. */
+.root {
+  grid-area: footer;
+  height: 60px;
+  padding: 0 5%;
+  display: flex;
+  background: #fff;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.logo {
+  & img {
+    max-height: 30px;
+    fill: #fcc;
+  }
+}
+
+.navLink {
+  padding: 20px;
+}

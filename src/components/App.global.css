@@ -13,10 +13,10 @@ body {
   font-family: var(--fontFamily);
   font-weight: var(--fontWeight);
   font-size: var(--fontSize);
+
   --webkit-text-size-adjust: 'none';
+
   text-size-adjust: 'none';
-  height: 100vh;
-  margin: 0;
 }
 
 body * {
@@ -27,7 +27,7 @@ body > #__next {
   height: 100%;
   position: relative;
   display: grid;
-  grid-template-areas: 
+  grid-template-areas:
     "header"
     "main"
     "footer";
@@ -41,10 +41,10 @@ a {
 }
 
 a:hover {
-    color: #333;
-    text-decoration: underline;
-  }
-  
+  color: #333;
+  text-decoration: underline;
+}
+
 a:visited {
   color: #333;
 }
