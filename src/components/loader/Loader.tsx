@@ -11,7 +11,7 @@ const Loader = (props: PropsWithChildren<unknown>): JSX.Element => {
   useEffect(() => {
     const canvas = canvasRef.current;
 
-    new Scene(canvas, {}).init();
+    new Scene(canvas, { fps: 120, numParticles: 500 }).init();
   }, []);
 
   return <canvas className={styles.root} ref={canvasRef} {...props} />;

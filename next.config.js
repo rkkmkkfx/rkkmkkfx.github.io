@@ -6,7 +6,9 @@ const debug = process.env.NODE_ENV !== 'production';
 
 module.exports = {
   images: {
-    domains: ['upload.wikimedia.org', 'raw.githubusercontent.com', 'geosrbija.rs'],
+    loader: 'cloudinary',
+    domains: ['res.cloudinary.com'],
+    path: 'https://res.cloudinary.com/rkkmkkfx-dev/image/upload/',
   },
   exportPathMap() {
     return {

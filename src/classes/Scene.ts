@@ -17,8 +17,8 @@ export default class Scene {
   ctx: CanvasRenderingContext2D;
 
   constructor(canvas: HTMLCanvasElement, {
-    fps = 120,
-    numParticles = 500,
+    fps,
+    numParticles,
   }: { fps: number, numParticles: number }) {
     this.fps = fps;
     this.numParticles = numParticles;
