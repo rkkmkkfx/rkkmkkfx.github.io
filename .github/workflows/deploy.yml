@@ -15,19 +15,12 @@ jobs:
     steps:
       # initialize repo
       - uses: actions/checkout@v2
-      - uses: borales/actions-yarn@v2.0.0
+      - uses: actions/setup-node@v2
         with:
-          cmd: install # will run `yarn install` command
-      - uses: borales/actions-yarn@v2.0.0
-        with:
-          cmd: deploy # will run `yarn build` command
-      - uses: borales/actions-yarn@v2.0.0
-      # test service theme for compatibility with ghost
-      # - name: Run tests
-      #   run: |
-      #     npx npm-install-if-needed
-      #     (cd themes/bible && npx npm-install-if-needed); (cd themes/qlik-blog && npx npm-install-if-needed);
-      #     npm test
+          node-version: '14'
+
+      - run: yarn install # will run `yarn install` command
+      - run: yarn deploy # will run `yarn build` command
       - name: Deploy
         uses: peaceiris/actions-gh-pages@v3
         with:
