@@ -13,10 +13,10 @@ const AboutPage = (): JSX.Element => (
     </Head>
     <h1>About me</h1>
     <p>
-      Hi, my name is Sergey. I&apos;m
+      Hey, my name is Sergey. I&apos;m
       {' '}
       {calculateAge(new Date(1985, 8, 14))}
-      yo Web Developer from Russia/Irkutsk
+      yo Web Developer.
     </p>
   </>
 );
