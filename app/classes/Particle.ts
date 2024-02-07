@@ -4,10 +4,10 @@ function rand(min, max) {
 
 export default class Particle {
   // canvas element
-  canvas: HTMLCanvasElement;
+  canvas: HTMLCanvasElement | null;
 
   // canvas context
-  ctx: CanvasRenderingContext2D;
+  ctx: CanvasRenderingContext2D | null;
 
   // particle colors
   colors: string[];
@@ -48,6 +48,7 @@ export default class Particle {
 
   constructor(canvas: HTMLCanvasElement) {
     this.canvas = canvas;
+    if (!this.canvas) return;
     this.ctx = this.canvas.getContext('2d');
 
     this.colors = [
@@ -81,8 +82,9 @@ export default class Particle {
 
   draw(): void {
     const { ctx } = this;
+    if (!ctx) return;
 
-    if (this.blurry === true) {
+    if (this.blurry) {
       // creates gradient if blurry === true
       const grd = ctx.createRadialGradient(
         this.xPos,
@@ -117,6 +119,7 @@ export default class Particle {
   }
 
   reset(): void {
+    if (!this.canvas) return;
     const random = rand(0, 1);
 
     if (random > 0.5) {

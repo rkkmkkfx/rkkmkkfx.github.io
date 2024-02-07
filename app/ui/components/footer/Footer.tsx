@@ -12,10 +12,10 @@ const Footer = (): JSX.Element => (
     <Logo />
     <nav className={styles.nav}>
       <Link href="https://github.com/rkkmkkfx" className={styles.navLink}>
-        <FontAwesomeIcon icon={faGithub} />
+        <FontAwesomeIcon icon={faGithub} size="xs" />
       </Link>
       <Link href="https://www.linkedin.com/in/rkkmkkfx/" className={styles.navLink}>
-        <FontAwesomeIcon icon={faLinkedin} />
+        <FontAwesomeIcon icon={faLinkedin} size="xs" />
       </Link>
     </nav>
   </footer>

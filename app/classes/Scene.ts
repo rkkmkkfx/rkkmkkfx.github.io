@@ -4,6 +4,8 @@ export default class Scene {
   // adds white border
   border: boolean;
 
+  active: boolean;
+
   // frames per second
   fps: number;
 
@@ -11,10 +13,10 @@ export default class Scene {
   numParticles: number;
 
   // canvas element
-  canvas: HTMLCanvasElement;
+  canvas: HTMLCanvasElement | null;
 
   // canvas context
-  ctx: CanvasRenderingContext2D;
+  ctx: CanvasRenderingContext2D | null;
 
   constructor(canvas: HTMLCanvasElement, {
     fps,
@@ -24,32 +26,37 @@ export default class Scene {
     this.numParticles = numParticles;
     this.canvas = canvas;
     this.ctx = this.canvas.getContext('2d');
+    this.active = false;
   }
 
   init(): void {
+    if (!this.canvas || this.active) return;
+    this.active = true;
     this.resize();
     this.createScene();
   }
 
   resize(): void {
-    this.canvas.width = this.canvas.parentElement.offsetWidth;
-    this.canvas.height = this.canvas.parentElement.offsetHeight;
+    if (!this.canvas) return;
+    this.canvas.width = this.canvas.parentElement?.offsetWidth ?? 0;
+    this.canvas.height = this.canvas.parentElement?.offsetHeight ?? 0;
 
     window.addEventListener('resize', this.resize.bind(this));
   }
 
   createScene(): void {
-    const particles = [];
+    const particles: Particle[] = [];
 
     for (let i = 0; i < this.numParticles; i++) {
-      particles[i] = new Particle(this.canvas);
+      particles[i] = new Particle(this.canvas!);
       particles[i].draw();
     }
     this.animate(particles);
   }
 
   clearCanvas(): void {
-    this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
+    if (!this.ctx) return;
+    this.ctx.clearRect(0, 0, this.canvas?.width ?? 0, this.canvas?.height ?? 0);
   }
 
   animate(particles: Particle[]): void {
@@ -61,8 +68,8 @@ export default class Scene {
         particles[i].update();
 
         // if particle goes off screen call reset method to place it offscreen to the left/bottom
-        if (particles[i].xPos > this.canvas.width + particles[i].radius
-          || particles[i].yPos > this.canvas.height + particles[i].radius) {
+        if (particles[i].xPos > (this.canvas?.width ?? 0) + particles[i].radius
+          || particles[i].yPos > (this.canvas?.height ?? 0) + particles[i].radius) {
           particles[i].reset();
         } else {
           particles[i].draw();

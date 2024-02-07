@@ -1,6 +1,6 @@
 import Head from 'next/head';
-import Greetings from '../src/components/greetings/Greetings';
-import Loader from '../src/components/loader/Loader';
+import Greetings from './ui/components/greetings';
+import Loader from './ui/components/loader';
 
 const HomePage = (): JSX.Element => (
   <>

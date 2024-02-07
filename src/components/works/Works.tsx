@@ -6,9 +6,9 @@ import styles from './Works.module.css';
 
 interface TinyLinkProps {
   url: string;
-  header?: string;
-  description?: string;
-  defaultMedia?: string
+  header: string;
+  description: string;
+  defaultMedia: string
 }
 
 const Works = ({ links }: { links: TinyLinkProps[] }): JSX.Element => (

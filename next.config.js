@@ -10,14 +10,6 @@ module.exports = {
     domains: ['res.cloudinary.com'],
     path: 'https://res.cloudinary.com/rkkmkkfx-dev/image/upload/',
   },
-  exportPathMap() {
-    return {
-      '/': { page: '/' },
-      '/about': { page: '/about' },
-      '/skills': { page: '/skills' },
-      '/work': { page: '/work' },
-    };
-  },
   // assetPrefix: '',
   assetPrefix: !debug ? '/' : '',
   webpack: (config, { dev }) => {
