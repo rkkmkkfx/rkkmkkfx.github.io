@@ -19,8 +19,8 @@ jobs:
         with:
           node-version: '14'
 
-      - run: yarn install # will run `yarn install` command
-      - run: yarn deploy # will run `yarn build` command
+      - run: npm install # will run `yarn install` command
+      - run: npm run deploy # will run `yarn build` command
       - name: Deploy
         uses: peaceiris/actions-gh-pages@v3
         with:
