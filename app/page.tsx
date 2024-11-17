@@ -12,8 +12,8 @@ export default function HomePage(): ReactElement {
   return (
     <div className={styles.root}>
       <h1 className={styles.heading}>
-        <span className={styles.line}>Hello</span>
-        <span className={styles.line}>World</span>
+        <span className={`${styles.line} ${styles.shadow}`}>Hello</span>
+        <span className={`${styles.line} ${styles.shadow}`}>World</span>
       </h1>
       <AnimatedLogo />
     </div>

@@ -14,6 +14,9 @@
 
 .heading {
   display: grid;
+}
+
+.shadow {
   text-shadow:
     1px -1px 0 #767676,
     -1px 2px 1px #737272,
@@ -44,6 +47,40 @@
     -26px 52px 1px #dfdddc,
     -27px 54px 1px #e2e0df,
     -28px 56px 1px #e4e3e2;
+  transition: text-shadow 0.3s ease;
+}
+
+.shadow:hover, .shadow:focus {
+  text-shadow:
+    1px -1px 0 #767676,
+    -2px 4px 2px #737272,
+    -4px 8px 2px #767474,
+    -6px 12px 2px #787777,
+    -8px 16px 2px #7b7a7a,
+    -10px 20px 2px #7f7d7d,
+    -12px 24px 2px #828181,
+    -14px 28px 2px #868585,
+    -16px 32px 2px #8b8a89,
+    -18px 36px 2px #8f8e8d,
+    -20px 40px 2px #949392,
+    -22px 44px 2px #999897,
+    -24px 48px 2px #9e9c9c,
+    -26px 52px 2px #a3a1a1,
+    -28px 56px 2px #a8a6a6,
+    -30px 60px 2px #adabab,
+    -32px 64px 2px #b2b1b0,
+    -34px 68px 2px #b7b6b5,
+    -36px 72px 2px #bcbbba,
+    -38px 76px 2px #c1bfbf,
+    -40px 80px 2px #c6c4c4,
+    -42px 84px 2px #cbc9c8,
+    -44px 88px 2px #cfcdcd,
+    -46px 92px 2px #d4d2d1,
+    -48px 96px 2px #d8d6d5,
+    -50px 100px 2px #dbdad9,
+    -52px 104px 2px #dfdddc,
+    -54px 108px 2px #e2e0df,
+    -56px 112px 2px #e4e3e2;
 }
 
 .line {
