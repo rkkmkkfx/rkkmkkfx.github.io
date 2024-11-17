@@ -16,27 +16,24 @@ export default function AboutPage(): ReactElement {
     <>
       <h1>About me</h1>
       <p>
-        Hi! I'm Sergey, a {calculateAge(new Date(1985, 8, 14))} year old
-        web developer who loves creating cool stuff for the internet.
+        I'm Sergey, a {calculateAge(new Date(1985, 8, 14))} year old
+        web developer focused on creating solutions for the web.
       </p>
       <p>
-        I'm all about building modern web apps with React, TypeScript, and Next.js.
-        I've been doing this for over 10 years now, and I really enjoy making things
-        that work great and are easy to use.
+        I specialize in developing web applications using React, TypeScript, and Next.js.
+        With over 10 years of experience, I focus on building efficient and user-friendly solutions.
       </p>
       <p>
-        While I mostly work on front-end stuff, I'm pretty comfortable with back-end tech too -
-        things like Node.js and databases such as MongoDB and PostgreSQL.
+        While my primary expertise is in front-end development, I also work with back-end technologies
+        including Node.js and databases such as MongoDB and PostgreSQL.
       </p>
       <p>
-        Outside of coding, you'll find me hanging out with my family or playing video games.
-        I also love making music and DJing in my free time!
+        When not coding, I spend time with my family, play video games,
+        and pursue interests in music production and DJing.
       </p>
       <p>
-        Got an interesting project in mind? Let's chat! Whether it's building something new,
-        making things run faster, or tackling tricky technical problems - I'm always up for
-        a good challenge.
-      </p>
-    </>
+        If you have a project to discuss, feel free to reach out. I'm open to opportunities
+        involving new development, optimization, or complex technical challenges.
+      </p>    </>
   );
 }
