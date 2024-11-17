@@ -1,22 +1,22 @@
 'use client';
 
-import { useState } from 'react';
+import { type ReactElement, useState } from 'react';
 import Link from 'next/link';
 
 import { v4 as uuidv4 } from 'uuid';
 
-import Logo from '../logo/Logo';
+import Logo from '../logo';
 
 import styles from './Header.module.css';
 
 const MENU_DEF = {
   home: '/',
   skills: '/skills',
-  works: '/work',
+  works: '/works',
   about: '/about',
 };
 
-const Header = (): JSX.Element => {
+export default function Header(): ReactElement {
   const [isActive, setIsActive] = useState(false);
   return (
     <header className={styles.root}>
@@ -42,7 +42,6 @@ const Header = (): JSX.Element => {
             tabIndex={index}
             className={styles.navLink}
             onClick={() => setIsActive(false)}
-            onKeyPress={() => setIsActive(false)}
           >
             {label}
           </Link>
@@ -51,5 +50,3 @@ const Header = (): JSX.Element => {
     </header>
   );
 };
-
-export default Header;

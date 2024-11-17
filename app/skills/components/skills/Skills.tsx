@@ -1,3 +1,4 @@
+import { type ReactElement } from 'react';
 import Image from 'next/image';
 import { v4 as uuidv4 } from 'uuid';
 
@@ -18,14 +19,14 @@ const techs = [
   '/rkkmkkfx.dev/skills/Nginx_logo.svg',
 ];
 
-const Skills = (): JSX.Element => (
-  <section className={styles.root}>
-    {techs.map((tech) => (
-      <div key={uuidv4()} className={styles.cell}>
-        <Image layout="fill" className={styles.img} src={tech} alt="" />
-      </div>
-    ))}
-  </section>
-);
-
-export default Skills;
+export default function Skills(): ReactElement {
+  return (
+    <section className={styles.root}>
+      {techs.map((tech) => (
+        <div key={uuidv4()} className={styles.cell}>
+          <Image layout="fill" className={styles.img} src={tech} alt="" />
+        </div>
+      ))}
+    </section>
+  );
+}

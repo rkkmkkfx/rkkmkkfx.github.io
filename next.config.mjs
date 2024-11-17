@@ -4,12 +4,13 @@
 
 const debug = process.env.NODE_ENV !== 'production';
 
-module.exports = {
+export default {
   images: {
     loader: 'cloudinary',
     domains: ['res.cloudinary.com'],
     path: 'https://res.cloudinary.com/rkkmkkfx-dev/image/upload/',
   },
+  output: 'export',
   // assetPrefix: '',
   assetPrefix: !debug ? '/' : '',
   webpack: (config, { dev }) => {

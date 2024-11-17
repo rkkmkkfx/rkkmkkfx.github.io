@@ -1,13 +1,13 @@
 'use client';
 
-import { useRef, useEffect } from 'react';
+import { useRef, useEffect, ReactElement } from 'react';
 import type { PropsWithChildren } from 'react';
 
 import Scene from '../../../classes/Scene';
 
 import styles from './Loader.module.css';
 
-const Loader = (props: PropsWithChildren<unknown>): JSX.Element => {
+export default function Loader(props: PropsWithChildren<unknown>): ReactElement {
   const canvasRef = useRef(null);
 
   useEffect(() => {
@@ -16,10 +16,9 @@ const Loader = (props: PropsWithChildren<unknown>): JSX.Element => {
     if (!canvas) {
       return;
     }
-    new Scene(canvas, { fps: 120, numParticles: 500 }).init();
+    new Scene(canvas);
+
   }, [canvasRef]);
 
   return <canvas className={styles.root} ref={canvasRef} {...props} />;
 };
-
-export default Loader;

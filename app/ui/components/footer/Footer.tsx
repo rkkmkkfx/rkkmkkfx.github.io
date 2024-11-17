@@ -6,19 +6,20 @@ import Link from 'next/link';
 import Logo from '../logo/Logo';
 
 import styles from './Footer.module.css';
+import { ReactElement } from 'react';
 
-const Footer = (): JSX.Element => (
-  <footer className={styles.root}>
-    <Logo />
-    <nav className={styles.nav}>
-      <Link href="https://github.com/rkkmkkfx" className={styles.navLink}>
-        <FontAwesomeIcon icon={faGithub} size="xs" />
-      </Link>
-      <Link href="https://www.linkedin.com/in/rkkmkkfx/" className={styles.navLink}>
-        <FontAwesomeIcon icon={faLinkedin} size="xs" />
-      </Link>
-    </nav>
-  </footer>
-);
-
-export default Footer;
+export default function Footer(): ReactElement {
+  return (
+    <footer className={styles.root}>
+      <Logo />
+      <nav className={styles.nav}>
+        <Link href="https://github.com/rkkmkkfx" className={styles.navLink}>
+          <FontAwesomeIcon icon={faGithub} size="xs" />
+        </Link>
+        <Link href="https://www.linkedin.com/in/rkkmkkfx/" className={styles.navLink}>
+          <FontAwesomeIcon icon={faLinkedin} size="xs" />
+        </Link>
+      </nav>
+    </footer>
+  );
+}
