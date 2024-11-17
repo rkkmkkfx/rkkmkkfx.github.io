@@ -1,6 +1,8 @@
 import { type ReactElement } from 'react';
 import type { Metadata } from 'next';
 
+import styles from './About.module.css';
+
 export const metadata: Metadata = {
   title: 'About Me | Sergey Baranov | Web Developer',
 };
@@ -32,8 +34,10 @@ export default function AboutPage(): ReactElement {
         and pursue interests in music production and DJing.
       </p>
       <p>
-        If you have a project to discuss, feel free to reach out. I'm open to opportunities
-        involving new development, optimization, or complex technical challenges.
+        If you have a project to discuss, feel free to
+        {' '}
+        <a className={styles.link} href="mailto:hello@rkkmkkfx.dev">reach out</a>.
+        I'm open to opportunities involving new development, optimization, or complex technical challenges.
       </p>
     </>
   );

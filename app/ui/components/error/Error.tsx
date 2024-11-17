@@ -1,6 +1,7 @@
+import { type ReactElement } from 'react';
 import styles from './Error.module.css';
 
-const Custom404 = (): JSX.Element => (
+const Custom404 = (): ReactElement => (
   <>
     <div className={styles.root}>
       <div>

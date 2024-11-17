@@ -2,7 +2,7 @@
 .root {
   grid-area: footer;
   height: 60px;
-  padding: 0 5%;
+  padding: 0 2vw;
   display: flex;
   background: #fff;
   align-items: center;

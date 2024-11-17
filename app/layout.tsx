@@ -19,7 +19,7 @@ export const viewport: Viewport = {
 export const metadata: Metadata = {
   title: 'Sergey Baranov | Web Developer',
   description: 'Sergey Baranov | Web Developer',
-  manifest: 'site.webmanifest',
+  manifest: '/static/favicon/site.webmanifest',
   icons: {
     icon: '/static/favicon/favicon-32x32.png',
     shortcut: '/static/img/logo.svg',

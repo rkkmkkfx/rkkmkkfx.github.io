@@ -1,7 +1,8 @@
 import { type ReactElement } from 'react';
 import type { Metadata } from 'next';
-import Greetings from './ui/components/greetings';
-import Loader from './ui/components/loader';
+import AnimatedLogo from './ui/components/animated-logo';
+
+import styles from './Home.module.css';
 
 export const metadata: Metadata = {
   title: 'Sergey Baranov | Web Developer',
@@ -9,8 +10,12 @@ export const metadata: Metadata = {
 
 export default function HomePage(): ReactElement {
   return (
-    <>
-      <Greetings text={['Hello', 'There']} image={<Loader />} />
-    </>
+    <div className={styles.root}>
+      <h1 className={styles.heading}>
+        <span className={styles.line}>Hello</span>
+        <span className={styles.line}>World</span>
+      </h1>
+      <AnimatedLogo />
+    </div>
   );
 }

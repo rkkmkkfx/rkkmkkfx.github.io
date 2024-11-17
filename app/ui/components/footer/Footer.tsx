@@ -1,5 +1,5 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faGithub, faLinkedin } from '@fortawesome/free-brands-svg-icons';
+import { faFacebook, faGithub, faLinkedin } from '@fortawesome/free-brands-svg-icons';
 
 import Link from 'next/link';
 
@@ -13,10 +13,13 @@ export default function Footer(): ReactElement {
     <footer className={styles.root}>
       <Logo />
       <nav className={styles.nav}>
+        <Link href="https://facebook.com/rkkmkkfx" className={styles.navLink}>
+          <FontAwesomeIcon icon={faFacebook} size="xs" />
+        </Link>
         <Link href="https://github.com/rkkmkkfx" className={styles.navLink}>
           <FontAwesomeIcon icon={faGithub} size="xs" />
         </Link>
-        <Link href="https://www.linkedin.com/in/rkkmkkfx/" className={styles.navLink}>
+        <Link href="https://linkedin.com/in/rkkmkkfx/" className={styles.navLink}>
           <FontAwesomeIcon icon={faLinkedin} size="xs" />
         </Link>
       </nav>
