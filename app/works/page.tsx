@@ -1,15 +1,16 @@
 import { type ReactElement } from 'react';
-import Head from 'next/head';
+import type { Metadata } from 'next';
 
 import Works from './components/works';
 import { data } from '../lib/data';
 
+export const metadata: Metadata = {
+  title: 'Work | Sergey Baranov | Web Developer',
+};
+
 export default function WorkPage(): ReactElement {
   return (
     <>
-      <Head>
-        <title>Work |  Sergey Baranov | Web Developer</title>
-      </Head>
       <h2>HTML Layout</h2>
       <Works links={data}
       />

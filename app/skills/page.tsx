@@ -1,13 +1,14 @@
 import { type ReactElement } from 'react';
-import Head from 'next/head';
+import type { Metadata } from 'next';
 import Skills from './components/skills';
+
+export const metadata: Metadata = {
+  title: 'Tech Skills | Sergey Baranov | Web Developer',
+};
 
 export default function SkillsPage(): ReactElement {
   return (
     <>
-      <Head>
-        <title>Tech Skills | Sergey Baranov | Web Developer</title>
-      </Head>
       <Skills />
     </>
   );
