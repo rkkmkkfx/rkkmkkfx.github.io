@@ -34,6 +34,7 @@ export default function AboutPage(): ReactElement {
       <p>
         If you have a project to discuss, feel free to reach out. I'm open to opportunities
         involving new development, optimization, or complex technical challenges.
-      </p>    </>
+      </p>
+    </>
   );
 }
