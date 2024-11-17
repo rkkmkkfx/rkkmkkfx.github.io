@@ -6,7 +6,7 @@ const debug = process.env.NODE_ENV !== 'production';
 
 export default {
   images: {
-    loader: 'cloudinary',
+    unoptimized: true,
     domains: ['res.cloudinary.com'],
     path: 'https://res.cloudinary.com/rkkmkkfx-dev/image/upload/',
   },

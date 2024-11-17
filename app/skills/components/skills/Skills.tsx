@@ -5,18 +5,23 @@ import { v4 as uuidv4 } from 'uuid';
 import styles from './Skills.module.css';
 
 const techs = [
-  '/rkkmkkfx.dev/skills/HTML5_logo_and_wordmark.svg',
-  '/rkkmkkfx.dev/skills/CSS3_logo_and_wordmark.svg',
-  '/rkkmkkfx.dev/skills/Unofficial_JavaScript_logo_2.svg',
-  '/rkkmkkfx.dev/skills/React-icon.svg',
-  '/rkkmkkfx.dev/skills/Sass_Logo_Color.svg',
-  '/rkkmkkfx.dev/skills/Typescript_logo_2020.svg',
-  '/rkkmkkfx.dev/skills/Nextjs-logo.svg',
-  '/rkkmkkfx.dev/skills/rest.svg',
-  '/rkkmkkfx.dev/skills/Node.js_logo.svg',
-  '/rkkmkkfx.dev/skills/Docker__28container_engine_29_logo.svg',
-  '/rkkmkkfx.dev/skills/Github-desktop-logo-symbol.svg',
-  '/rkkmkkfx.dev/skills/Nginx_logo.svg',
+  'https://raw.githubusercontent.com/devicons/devicon/master/icons/nextjs/nextjs-original.svg',
+  'https://github.com/devicons/devicon/raw/master/icons/react/react-original.svg',
+  'https://github.com/devicons/devicon/raw/master/icons/redux/redux-original.svg',
+  'https://github.com/devicons/devicon/raw/master/icons/materialui/materialui-original.svg',
+  'https://raw.githubusercontent.com/devicons/devicon/master/icons/bootstrap/bootstrap-original.svg',
+  'https://github.com/devicons/devicon/raw/master/icons/css3/css3-plain.svg',
+  'https://github.com/devicons/devicon/raw/master/icons/html5/html5-original.svg',
+  'https://github.com/devicons/devicon/raw/master/icons/javascript/javascript-original.svg',
+  'https://github.com/devicons/devicon/raw/master/icons/typescript/typescript-original.svg',
+  'https://raw.githubusercontent.com/devicons/devicon/master/icons/webpack/webpack-plain.svg',
+  'https://raw.githubusercontent.com/devicons/devicon/master/icons/eslint/eslint-original.svg',
+  'https://raw.githubusercontent.com/devicons/devicon/master/icons/nodejs/nodejs-plain.svg',
+  'https://raw.githubusercontent.com/devicons/devicon/master/icons/express/express-original.svg',
+  'https://raw.githubusercontent.com/devicons/devicon/master/icons/socketio/socketio-original.svg',
+  'https://raw.githubusercontent.com/devicons/devicon/master/icons/git/git-original.svg',
+  'https://raw.githubusercontent.com/devicons/devicon/master/icons/docker/docker-original.svg',
+  'https://raw.githubusercontent.com/devicons/devicon/master/icons/webstorm/webstorm-plain.svg',
 ];
 
 export default function Skills(): ReactElement {
@@ -24,7 +29,7 @@ export default function Skills(): ReactElement {
     <section className={styles.root}>
       {techs.map((tech) => (
         <div key={uuidv4()} className={styles.cell}>
-          <Image layout="fill" className={styles.img} src={tech} alt="" />
+          <Image width={200} height={200} className={styles.img} src={tech} alt="" />
         </div>
       ))}
     </section>
