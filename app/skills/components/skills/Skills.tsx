@@ -1,35 +1,35 @@
 import { type ReactElement } from 'react';
 import Image from 'next/image';
-import { v4 as uuidv4 } from 'uuid';
 
 import styles from './Skills.module.css';
 
-const techs = [
-  'https://raw.githubusercontent.com/devicons/devicon/master/icons/nextjs/nextjs-original.svg',
-  'https://github.com/devicons/devicon/raw/master/icons/react/react-original.svg',
-  'https://github.com/devicons/devicon/raw/master/icons/redux/redux-original.svg',
-  'https://github.com/devicons/devicon/raw/master/icons/materialui/materialui-original.svg',
-  'https://raw.githubusercontent.com/devicons/devicon/master/icons/bootstrap/bootstrap-original.svg',
-  'https://github.com/devicons/devicon/raw/master/icons/css3/css3-plain.svg',
-  'https://github.com/devicons/devicon/raw/master/icons/html5/html5-original.svg',
-  'https://github.com/devicons/devicon/raw/master/icons/javascript/javascript-original.svg',
-  'https://github.com/devicons/devicon/raw/master/icons/typescript/typescript-original.svg',
-  'https://raw.githubusercontent.com/devicons/devicon/master/icons/webpack/webpack-plain.svg',
-  'https://raw.githubusercontent.com/devicons/devicon/master/icons/eslint/eslint-original.svg',
-  'https://raw.githubusercontent.com/devicons/devicon/master/icons/nodejs/nodejs-plain.svg',
-  'https://raw.githubusercontent.com/devicons/devicon/master/icons/express/express-original.svg',
-  'https://raw.githubusercontent.com/devicons/devicon/master/icons/socketio/socketio-original.svg',
-  'https://raw.githubusercontent.com/devicons/devicon/master/icons/git/git-original.svg',
-  'https://raw.githubusercontent.com/devicons/devicon/master/icons/docker/docker-original.svg',
-  'https://raw.githubusercontent.com/devicons/devicon/master/icons/webstorm/webstorm-plain.svg',
+const techs: { name: string; url: string }[] = [
+  { name: 'Next.js', url: 'https://raw.githubusercontent.com/devicons/devicon/master/icons/nextjs/nextjs-original.svg' },
+  { name: 'React', url: 'https://github.com/devicons/devicon/raw/master/icons/react/react-original.svg' },
+  { name: 'Redux', url: 'https://github.com/devicons/devicon/raw/master/icons/redux/redux-original.svg' },
+  { name: 'Material UI', url: 'https://github.com/devicons/devicon/raw/master/icons/materialui/materialui-original.svg' },
+  { name: 'Bootstrap', url: 'https://raw.githubusercontent.com/devicons/devicon/master/icons/bootstrap/bootstrap-original.svg' },
+  { name: 'CSS3', url: 'https://github.com/devicons/devicon/raw/master/icons/css3/css3-plain.svg' },
+  { name: 'HTML5', url: 'https://github.com/devicons/devicon/raw/master/icons/html5/html5-original.svg' },
+  { name: 'JavaScript', url: 'https://github.com/devicons/devicon/raw/master/icons/javascript/javascript-original.svg' },
+  { name: 'TypeScript', url: 'https://github.com/devicons/devicon/raw/master/icons/typescript/typescript-original.svg' },
+  { name: 'Webpack', url: 'https://raw.githubusercontent.com/devicons/devicon/master/icons/webpack/webpack-plain.svg' },
+  { name: 'ESLint', url: 'https://raw.githubusercontent.com/devicons/devicon/master/icons/eslint/eslint-original.svg' },
+  { name: 'Node.js', url: 'https://raw.githubusercontent.com/devicons/devicon/master/icons/nodejs/nodejs-plain.svg' },
+  { name: 'Express', url: 'https://raw.githubusercontent.com/devicons/devicon/master/icons/express/express-original.svg' },
+  { name: 'Socket.io', url: 'https://raw.githubusercontent.com/devicons/devicon/master/icons/socketio/socketio-original.svg' },
+  { name: 'Git', url: 'https://raw.githubusercontent.com/devicons/devicon/master/icons/git/git-original.svg' },
+  { name: 'Docker', url: 'https://raw.githubusercontent.com/devicons/devicon/master/icons/docker/docker-original.svg' },
+  { name: 'WebStorm', url: 'https://raw.githubusercontent.com/devicons/devicon/master/icons/webstorm/webstorm-plain.svg' },
 ];
 
 export default function Skills(): ReactElement {
   return (
     <section className={styles.root}>
       {techs.map((tech) => (
-        <div key={uuidv4()} className={styles.cell}>
-          <Image width={200} height={200} className={styles.img} src={tech} alt="" />
+        <div key={tech.name} className={styles.cell}>
+          <Image width={200} height={200} className={styles.img} src={tech.url} alt={tech.name} />
+          <span className={styles.label}>{tech.name}</span>
         </div>
       ))}
     </section>

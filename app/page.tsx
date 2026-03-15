@@ -8,6 +8,8 @@ export const metadata: Metadata = {
   title: 'Sergey Baranov | Web Developer',
 };
 
+const taglines = ['React', 'TypeScript', 'Next.js', 'Node.js'];
+
 export default function HomePage(): ReactElement {
   return (
     <div className={styles.root}>
@@ -15,6 +17,14 @@ export default function HomePage(): ReactElement {
         <span className={`${styles.line} ${styles.shadow}`}>Hello</span>
         <span className={`${styles.line} ${styles.shadow}`}>World</span>
       </h1>
+      <p className={styles.tagline}>
+        Web developer crafting with{' '}
+        {taglines.map((tag, i) => (
+          <span key={tag} className={styles.tag} style={{ animationDelay: `${i * 0.15}s` }}>
+            {tag}{i < taglines.length - 1 ? ' · ' : ''}
+          </span>
+        ))}
+      </p>
       <AnimatedLogo />
     </div>
   );

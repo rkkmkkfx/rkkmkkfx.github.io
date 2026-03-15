@@ -6,6 +6,7 @@ import Link from 'next/link';
 import { v4 as uuidv4 } from 'uuid';
 
 import Logo from '../logo';
+import ThemeToggle from '../theme-toggle';
 
 import styles from './Header.module.css';
 
@@ -21,6 +22,7 @@ export default function Header(): ReactElement {
   return (
     <header className={styles.root}>
       <Logo />
+      <ThemeToggle />
       <button
         type="button"
         className={`${styles.toggler}${isActive ? ` ${styles.active}` : ''}`}
