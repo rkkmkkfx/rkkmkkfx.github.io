@@ -19,7 +19,7 @@ export default function AboutPage(): ReactElement {
       <h1>About me</h1>
       <p>
         I'm Sergey, a {calculateAge(new Date(1985, 8, 14))} year old
-        web developer based in Russia, passionate about building things for the web.
+        web developer passionate about building things for the web.
       </p>
       <p>
         With over a decade of experience, I specialise in front-end engineering — primarily
