@@ -98,3 +98,39 @@
 .line:last-child {
   text-align: right;
 }
+
+.tagline {
+  font-size: 1.1rem;
+  color: var(--color-text-muted);
+  letter-spacing: 0.05em;
+  margin-top: -1rem;
+  margin-bottom: 2rem;
+  animation: slideIn 0.8s ease both;
+  animation-delay: 0.4s;
+}
+
+.tag {
+  display: inline-block;
+  animation: fadeSlideIn 0.5s ease both;
+  color: var(--color-text-muted);
+}
+
+@keyframes fadeSlideIn {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideIn {
+  from {
+    transform: translateY(8px);
+  }
+  to {
+    transform: translateY(0);
+  }
+}
