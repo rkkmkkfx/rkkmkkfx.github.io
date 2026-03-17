@@ -19,25 +19,26 @@ export default function AboutPage(): ReactElement {
       <h1>About me</h1>
       <p>
         I'm Sergey, a {calculateAge(new Date(1985, 8, 14))} year old
-        web developer focused on creating solutions for the web.
+        web developer based in Russia, passionate about building things for the web.
       </p>
       <p>
-        I specialize in developing web applications using React, TypeScript, and Next.js.
-        With over 10 years of experience, I focus on building efficient and user-friendly solutions.
+        With over a decade of experience, I specialise in front-end engineering — primarily
+        React, TypeScript, and Next.js. I care about clean architecture, performance, and
+        delivering interfaces that actually feel good to use.
       </p>
       <p>
-        While my primary expertise is in front-end development, I also work with back-end technologies
-        including Node.js and databases such as MongoDB and PostgreSQL.
+        Beyond the front end I'm comfortable across the full stack: Node.js, Express,
+        Socket.io on the server side, and PostgreSQL or MongoDB for data storage.
+        I've shipped everything from small marketing sites to data-heavy SaaS dashboards.
       </p>
       <p>
-        When not coding, I spend time with my family, play video games,
-        and pursue interests in music production and DJing.
+        Outside of work I spend time with my family, unwind with video games,
+        and dig into music production and DJing.
       </p>
       <p>
-        If you have a project to discuss, feel free to
-        {' '}
+        Got a project or just want to talk tech? Feel free to{' '}
         <a className={styles.link} href="mailto:hello@rkkmkkfx.dev">reach out</a>.
-        I'm open to opportunities involving new development, optimization, or complex technical challenges.
+        I'm always open to interesting work — new builds, refactors, or tricky technical problems.
       </p>
     </>
   );
