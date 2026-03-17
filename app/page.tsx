@@ -9,6 +9,8 @@ export const metadata: Metadata = {
 };
 
 const taglines = ['React', 'TypeScript', 'Next.js', 'Node.js'];
+const taglineDelay = 0.4;
+const tagStagger = 0.15;
 
 export default function HomePage(): ReactElement {
   return (
@@ -20,7 +22,11 @@ export default function HomePage(): ReactElement {
       <p className={styles.tagline}>
         Web developer crafting with{' '}
         {taglines.map((tag, i) => (
-          <span key={tag} className={styles.tag} style={{ animationDelay: `${i * 0.15}s` }}>
+          <span
+            key={tag}
+            className={styles.tag}
+            style={{ animationDelay: `${taglineDelay + i * tagStagger}s` }}
+          >
             {tag}{i < taglines.length - 1 ? ' · ' : ''}
           </span>
         ))}
