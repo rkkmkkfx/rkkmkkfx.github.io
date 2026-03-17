@@ -13,11 +13,10 @@ function getInitialTheme(): Theme {
 }
 
 export default function ThemeToggle(): ReactElement {
-  const [theme, setTheme] = useState<Theme>('light');
+  const [theme, setTheme] = useState<Theme>(() => getInitialTheme());
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
-    setTheme(getInitialTheme());
     setMounted(true);
   }, []);
 

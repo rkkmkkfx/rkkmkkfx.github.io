@@ -38,8 +38,8 @@ export default function Works({ links }: { links: TinyLinkProps[] }): ReactEleme
             <span className={styles.content}>
               <h4>{link.header}</h4>
               <div className={styles.badges}>
-                {badges.map((badge) => (
-                  <span key={badge} className={styles.badge}>{badge}</span>
+                {badges.map((badge, index) => (
+                  <span key={`${link.url}-${badge}-${index}`} className={styles.badge}>{badge}</span>
                 ))}
               </div>
             </span>

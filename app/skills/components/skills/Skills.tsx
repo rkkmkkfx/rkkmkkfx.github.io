@@ -28,7 +28,7 @@ export default function Skills(): ReactElement {
     <section className={styles.root}>
       {techs.map((tech) => (
         <div key={tech.name} className={styles.cell}>
-          <Image width={200} height={200} className={styles.img} src={tech.url} alt={tech.name} />
+          <Image width={64} height={64} className={styles.img} src={tech.url} alt={tech.name} />
           <span className={styles.label}>{tech.name}</span>
         </div>
       ))}
