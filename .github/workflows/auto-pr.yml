@@ -1,0 +1,98 @@
+name: Auto Create PR
+
+on:
+  push:
+    branches-ignore:
+      - main
+
+permissions:
+  contents: read
+  pull-requests: write
+  models: read
+
+jobs:
+  create-pr:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Generate description and create PR
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const branch = context.ref.replace('refs/heads/', '');
+
+            // Skip if PR already exists
+            const { data: pulls } = await github.rest.pulls.list({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              head: `${context.repo.owner}:${branch}`,
+              state: 'open',
+            });
+
+            if (pulls.length > 0) {
+              console.log(`PR already exists: ${pulls[0].html_url}`);
+              return;
+            }
+
+            // Get diff against main (capped to avoid token limits)
+            const { execSync } = require('child_process');
+            let diff = '';
+            try {
+              diff = execSync(
+                `git diff origin/main...HEAD -- . ':(exclude)*.lock' ':(exclude)package-lock.json'`,
+                { encoding: 'utf8', maxBuffer: 1024 * 1024 }
+              ).slice(0, 12000);
+            } catch (e) {
+              console.log('Could not get diff:', e.message);
+            }
+
+            // Generate PR description via GitHub Models (Copilot)
+            let body = `Automated PR for branch \`${branch}\``;
+            if (diff) {
+              try {
+                const response = await fetch(
+                  'https://models.inference.ai.azure.com/chat/completions',
+                  {
+                    method: 'POST',
+                    headers: {
+                      'Content-Type': 'application/json',
+                      Authorization: `Bearer ${process.env.GITHUB_TOKEN}`,
+                    },
+                    body: JSON.stringify({
+                      model: 'openai/gpt-4o',
+                      messages: [
+                        {
+                          role: 'system',
+                          content:
+                            'You are a helpful assistant that writes concise GitHub pull request descriptions. ' +
+                            'Use markdown. Include a short summary, then a bullet list of changes. No fluff.',
+                        },
+                        {
+                          role: 'user',
+                          content: `Write a pull request description for these changes:\n\n\`\`\`diff\n${diff}\n\`\`\``,
+                        },
+                      ],
+                    }),
+                  }
+                );
+                const json = await response.json();
+                const generated = json?.choices?.[0]?.message?.content;
+                if (generated) body = generated;
+              } catch (e) {
+                console.log('Copilot generation failed, using default body:', e.message);
+              }
+            }
+
+            const { data: pr } = await github.rest.pulls.create({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              title: branch,
+              body,
+              head: branch,
+              base: 'main',
+            });
+
+            console.log(`Created PR: ${pr.html_url}`);
