@@ -15,12 +15,39 @@ const { title = 'Sergey Baranov — Senior web developer', description = 'A seni
     <title>{title}</title>
   </head>
   <body>
+    <span class="scroll-progress" aria-hidden="true"></span>
     <a class="skip-link" href="#main">Skip to content</a>
     <SiteHeader />
     <main id="main"><slot /></main>
     <SiteFooter />
   </body>
 </html>
+<script is:inline>
+  const root = document.documentElement;
+  const reveals = document.querySelectorAll('[data-reveal]');
+  const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (reduced) reveals.forEach((el) => el.classList.add('is-visible'));
+  else {
+    const observer = new IntersectionObserver((entries) => entries.forEach((entry) => {
+      if (entry.isIntersecting) { entry.target.classList.add('is-visible'); observer.unobserve(entry.target); }
+    }), { threshold: 0.12, rootMargin: '0px 0px -8% 0px' });
+    reveals.forEach((el) => observer.observe(el));
+  }
+  let raf = 0;
+  const updateScroll = () => {
+    raf = 0;
+    const max = document.documentElement.scrollHeight - window.innerHeight;
+    const progress = max > 0 ? window.scrollY / max : 0;
+    root.style.setProperty('--scroll-progress', progress.toFixed(3));
+    document.querySelectorAll('[data-parallax]').forEach((el) => {
+      const box = el.getBoundingClientRect();
+      const amount = Math.max(-1, Math.min(1, (window.innerHeight / 2 - (box.top + box.height / 2)) / window.innerHeight));
+      el.style.setProperty('--parallax-y', `${(amount * 22).toFixed(1)}px`);
+    });
+  };
+  window.addEventListener('scroll', () => { if (!raf) raf = requestAnimationFrame(updateScroll); }, { passive: true });
+  updateScroll();
+</script>
 <style>
   .skip-link { position: fixed; left: 1rem; top: -5rem; z-index: 20; padding: .7rem 1rem; background: var(--signal); color: var(--ink); font: .75rem var(--mono); }
   .skip-link:focus { top: 1rem; }

@@ -4,15 +4,27 @@ interface Props { entry: CollectionEntry<'work'>; featured?: boolean; }
 const { entry, featured = false } = Astro.props;
 const { data } = entry;
 ---
-<a class:list={{ card: true, featured }} href={`/work/${entry.id}/`} data-reveal>
+<a class:list={{ card: true, featured }} href={`/work/${entry.id}/`} data-reveal data-tilt>
   <div class="media"><img src={data.image} alt={`${data.title} project preview`} loading="lazy" /><span class="year">{data.year}</span></div>
   <div class="copy"><div><span class="eyebrow">{data.role}</span><h3>{data.title}</h3></div><span class="arrow">↗</span></div>
   <p>{data.summary}</p>
 </a>
 <style>
-  .card { display: block; padding-bottom: 1.5rem; border-bottom: 1px solid var(--rule); transition: transform .5s var(--ease); } .card:hover { transform: translateY(-6px); }
+  .card { --tilt-x: 0deg; --tilt-y: 0deg; display: block; padding-bottom: 1.5rem; border-bottom: 1px solid var(--rule); transform: perspective(900px) rotateX(var(--tilt-x)) rotateY(var(--tilt-y)); transition: transform .6s var(--ease); } .card:hover { --lift: -6px; transform: perspective(900px) rotateX(var(--tilt-x)) rotateY(var(--tilt-y)) translateY(-6px); }
   .media { position: relative; aspect-ratio: 16 / 10; margin-bottom: 1.2rem; overflow: hidden; background: var(--surface); }
   .media img { width: 100%; height: 100%; object-fit: cover; filter: saturate(.7); transition: transform .8s var(--ease), filter .5s ease; } .card:hover img { transform: scale(1.05); filter: saturate(1); }
   .year { position: absolute; top: .8rem; right: .8rem; padding: .4rem .5rem; background: var(--ink); color: var(--paper); font: .65rem var(--mono); }
   .copy { display: flex; justify-content: space-between; gap: 1rem; } h3 { margin: .55rem 0 0; font: 600 clamp(1.8rem, 3vw, 3rem)/.9 var(--display); letter-spacing: -.045em; } .arrow { color: var(--signal); font-size: 1.5rem; } p { max-width: 32rem; margin: 1rem 0 0; color: var(--fog); font-size: .9rem; line-height: 1.6; }
 </style>
+<script>
+  if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    document.querySelectorAll('[data-tilt]').forEach((card) => {
+      card.addEventListener('pointermove', (event) => {
+        const rect = card.getBoundingClientRect();
+        card.style.setProperty('--tilt-x', `${((event.clientY - rect.top) / rect.height - .5) * -4}deg`);
+        card.style.setProperty('--tilt-y', `${((event.clientX - rect.left) / rect.width - .5) * 5}deg`);
+      });
+      card.addEventListener('pointerleave', () => { card.style.setProperty('--tilt-x', '0deg'); card.style.setProperty('--tilt-y', '0deg'); });
+    });
+  }
+</script>

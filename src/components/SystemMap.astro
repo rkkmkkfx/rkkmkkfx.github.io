@@ -1,4 +1,4 @@
-<div class="system-map" aria-label="A system map showing intent becoming interface and shipped work">
+<div class="system-map" data-system-map aria-label="A system map showing intent becoming interface and shipped work">
   <svg viewBox="0 0 600 480" role="img" aria-hidden="true">
     <path class="path path-one" d="M78 98 C180 98 150 240 296 240 S410 95 520 95" />
     <path class="path path-two" d="M78 380 C190 380 165 240 296 240 S420 380 520 380" />
@@ -10,9 +10,9 @@
   <span class="map-status"><i></i> system online / 01</span>
 </div>
 <style>
-  .system-map { position: relative; min-height: 30rem; display: grid; place-items: center; border: 1px solid var(--rule); background: radial-gradient(circle at 50% 50%, rgba(114,167,255,.1), transparent 45%), var(--surface); overflow: hidden; }
+  .system-map { --map-x: 0px; --map-y: 0px; position: relative; min-height: 30rem; display: grid; place-items: center; border: 1px solid var(--rule); background: radial-gradient(circle at calc(50% + var(--map-x)) calc(50% + var(--map-y)), rgba(114,167,255,.18), transparent 45%), var(--surface); overflow: hidden; transition: background-position .8s var(--ease); }
   .system-map::after { content: ''; position: absolute; inset: 1rem; border: 1px solid rgba(241,240,235,.05); pointer-events: none; }
-  svg { width: 100%; max-width: 600px; overflow: visible; }
+  svg { width: 100%; max-width: 600px; overflow: visible; transform: translate(var(--map-x), var(--map-y)) scale(calc(1 + var(--scroll-progress, 0) * .025)); transition: transform .45s var(--ease); }
   .path { fill: none; stroke: rgba(241,240,235,.2); stroke-width: 1; stroke-dasharray: 5 9; animation: drift 18s linear infinite; }
   .path-one { stroke: var(--signal); stroke-opacity: .7; } .path-three { stroke: var(--current); stroke-opacity: .65; }
   .node { fill: var(--ink); stroke: var(--fog); stroke-width: 1.5; } .node-core { fill: var(--signal); stroke: var(--signal); filter: drop-shadow(0 0 14px rgba(255,106,61,.8)); }
@@ -22,3 +22,14 @@
   @keyframes drift { to { stroke-dashoffset: -200; } }
   @media (prefers-reduced-motion: reduce) { .path { animation: none; } }
 </style>
+<script>
+  const map = document.querySelector('[data-system-map]');
+  if (map && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    map.addEventListener('pointermove', (event) => {
+      const rect = map.getBoundingClientRect();
+      map.style.setProperty('--map-x', `${((event.clientX - rect.left) / rect.width - .5) * 18}px`);
+      map.style.setProperty('--map-y', `${((event.clientY - rect.top) / rect.height - .5) * 18}px`);
+    });
+    map.addEventListener('pointerleave', () => { map.style.setProperty('--map-x', '0px'); map.style.setProperty('--map-y', '0px'); });
+  }
+</script>
