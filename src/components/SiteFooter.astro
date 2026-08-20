@@ -2,8 +2,10 @@
   <span>© {new Date().getFullYear()} Sergey Baranov</span>
   <span>Built for the web / built to last</span>
   <a href="mailto:hello@rkkmkkfx.dev">hello@rkkmkkfx.dev ↗</a>
+  <button class="chaos-toggle" type="button" data-chaos-toggle aria-label="Toggle chaos mode">rkkmkkfx // perturb</button>
 </footer>
 <style>
   .footer { display: flex; justify-content: space-between; gap: 1rem; padding-block: 2rem; color: var(--fog); font: .65rem var(--mono); text-transform: uppercase; letter-spacing: .05em; }
   .footer a { color: var(--paper); } @media (max-width: 700px) { .footer { flex-direction: column; } }
+  .chaos-toggle { border: 0; padding: 0; color: var(--fog); background: none; font: inherit; text-transform: inherit; letter-spacing: inherit; cursor: pointer; } .chaos-toggle:hover { color: var(--signal); }
 </style>

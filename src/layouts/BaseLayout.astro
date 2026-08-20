@@ -47,6 +47,10 @@ const { title = 'Sergey Baranov — Senior web developer', description = 'A seni
   };
   window.addEventListener('scroll', () => { if (!raf) raf = requestAnimationFrame(updateScroll); }, { passive: true });
   updateScroll();
+  document.querySelector('[data-chaos-toggle]')?.addEventListener('click', () => {
+    document.body.toggleAttribute('data-chaos');
+    document.querySelector('[data-chaos-toggle]')?.setAttribute('aria-pressed', document.body.hasAttribute('data-chaos') ? 'true' : 'false');
+  });
 </script>
 <style>
   .skip-link { position: fixed; left: 1rem; top: -5rem; z-index: 20; padding: .7rem 1rem; background: var(--signal); color: var(--ink); font: .75rem var(--mono); }
