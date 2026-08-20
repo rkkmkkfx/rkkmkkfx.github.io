@@ -1,0 +1,8 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro'; import { getCollection } from 'astro:content';
+const entries = (await getCollection('lab')).sort((a,b) => b.data.date.valueOf() - a.data.date.valueOf());
+---
+<BaseLayout title="Lab — Sergey Baranov"><section class="intro container"><p class="eyebrow">02 / The lab</p><h1 class="display">Notes from<br /><em>the useful edge.</em></h1><p>A running record of experiments, questions, and small systems that help me understand how the web can work better.</p></section><section class="entries container">{entries.map((entry) => <a class="entry" href={`/lab/${entry.id}/`}><div><span class="eyebrow">{entry.data.status}</span><h2 class="display">{entry.data.title}</h2></div><div><time>{entry.data.date.toLocaleDateString('en-US', {year:'numeric', month:'short'})}</time><p>{entry.data.summary}</p><span class="read">Read note ↗</span></div></a>)}</section></BaseLayout>
+<style>
+ .intro{padding-block:8rem 5rem}.intro h1{margin:1.5rem 0;font-size:clamp(4rem,10vw,10rem);line-height:.82}.intro>p:last-child{max-width:32rem;color:var(--fog);line-height:1.7}.entries{padding-bottom:10rem}.entry{display:grid;grid-template-columns:1fr 1fr;gap:2rem;padding-block:2.5rem;border-top:1px solid var(--rule)}.entry h2{margin:1rem 0;font-size:clamp(2.5rem,5vw,5rem);line-height:.85}.entry time,.entry p{color:var(--fog);font:.75rem var(--mono)}.entry p{max-width:25rem;line-height:1.6;font-family:var(--body);font-size:.9rem}.read{display:inline-block;margin-top:1rem;color:var(--signal);font:.7rem var(--mono);text-transform:uppercase}@media(max-width:700px){.intro{padding-block:5rem 3rem}.entry{grid-template-columns:1fr;gap:1rem}}
+</style>

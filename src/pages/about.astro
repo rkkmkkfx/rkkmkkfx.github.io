@@ -1,0 +1,7 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+---
+<BaseLayout title="About — Sergey Baranov"><section class="about container"><p class="eyebrow">03 / About</p><h1 class="display">A developer who<br /><em>stays curious.</em></h1><div class="columns"><div><p class="lead">I’m Sergey, a web developer who likes the point where a product idea becomes a real, navigable thing.</p><p>I care about the connective tissue: the words, states, transitions, and technical decisions that make an interface feel obvious once it exists.</p></div><div class="facts"><span class="eyebrow">Currently useful with</span><p>TypeScript<br />Astro / Next.js<br />React<br />Node.js<br />Design systems<br />Data-heavy interfaces</p></div></div></section></BaseLayout>
+<style>
+ .about{padding-block:8rem 12rem}.about h1{margin:1.5rem 0 7rem;font-size:clamp(4.5rem,11vw,11rem);line-height:.8}.columns{display:grid;grid-template-columns:1.2fr .8fr;gap:5rem;border-top:1px solid var(--rule);padding-top:2rem}.columns>div:first-child{max-width:38rem}.columns p{color:var(--fog);line-height:1.8}.lead{color:var(--paper)!important;font-size:1.45rem;line-height:1.45!important}.facts p{font:1rem/2 var(--mono);color:var(--paper)}@media(max-width:700px){.about{padding-block:5rem 8rem}.about h1{margin-bottom:4rem}.columns{grid-template-columns:1fr;gap:3rem}}
+</style>

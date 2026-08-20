@@ -1,8 +1,0 @@
-.link {
-  text-decoration: underline;
-  color: var(--color-accent);
-
-  &:hover {
-    color: var(--color-accent-hover);
-  }
-}

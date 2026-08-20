@@ -1,0 +1,9 @@
+---
+import { getCollection, render } from 'astro:content'; import BaseLayout from '../../layouts/BaseLayout.astro';
+export async function getStaticPaths(){ const entries=await getCollection('lab'); return entries.map((entry)=>({params:{slug:entry.id},props:{entry}})); }
+const {entry}=Astro.props; const {Content}=await render(entry);
+---
+<BaseLayout title={`${entry.data.title} — Lab`}><article class="note container"><a class="back" href="/lab/">← Back to lab</a><p class="eyebrow">{entry.data.status} / {entry.data.date.toLocaleDateString('en-US', {year:'numeric', month:'long', day:'numeric'})}</p><h1 class="display">{entry.data.title}</h1><div class="prose"><Content /></div></article></BaseLayout>
+<style>
+ .note{padding-block:3rem 12rem}.back{display:inline-block;margin-bottom:6rem;color:var(--fog);font:.7rem var(--mono);text-transform:uppercase}.note h1{max-width:15ch;margin:1.5rem 0 6rem;font-size:clamp(4rem,10vw,10rem);line-height:.8}.prose{max-width:45rem;font-size:1.25rem;line-height:1.75}.prose p{color:var(--fog)}@media(max-width:700px){.note{padding-block:2rem 8rem}.back{margin-bottom:4rem}.note h1{margin-bottom:4rem}}
+</style>

@@ -1,0 +1,24 @@
+<div class="system-map" aria-label="A system map showing intent becoming interface and shipped work">
+  <svg viewBox="0 0 600 480" role="img" aria-hidden="true">
+    <path class="path path-one" d="M78 98 C180 98 150 240 296 240 S410 95 520 95" />
+    <path class="path path-two" d="M78 380 C190 380 165 240 296 240 S420 380 520 380" />
+    <path class="path path-three" d="M296 240 V58" />
+    <circle class="node node-a" cx="78" cy="98" r="7" /><circle class="node node-b" cx="78" cy="380" r="7" />
+    <circle class="node node-core" cx="296" cy="240" r="12" /><circle class="node node-c" cx="520" cy="95" r="7" /><circle class="node node-d" cx="520" cy="380" r="7" />
+    <text x="48" y="75">INTENT</text><text x="42" y="412">CONTEXT</text><text x="260" y="34">SYSTEM</text><text x="475" y="72">INTERFACE</text><text x="476" y="412">SHIPPED</text>
+  </svg>
+  <span class="map-status"><i></i> system online / 01</span>
+</div>
+<style>
+  .system-map { position: relative; min-height: 30rem; display: grid; place-items: center; border: 1px solid var(--rule); background: radial-gradient(circle at 50% 50%, rgba(114,167,255,.1), transparent 45%), var(--surface); overflow: hidden; }
+  .system-map::after { content: ''; position: absolute; inset: 1rem; border: 1px solid rgba(241,240,235,.05); pointer-events: none; }
+  svg { width: 100%; max-width: 600px; overflow: visible; }
+  .path { fill: none; stroke: rgba(241,240,235,.2); stroke-width: 1; stroke-dasharray: 5 9; animation: drift 18s linear infinite; }
+  .path-one { stroke: var(--signal); stroke-opacity: .7; } .path-three { stroke: var(--current); stroke-opacity: .65; }
+  .node { fill: var(--ink); stroke: var(--fog); stroke-width: 1.5; } .node-core { fill: var(--signal); stroke: var(--signal); filter: drop-shadow(0 0 14px rgba(255,106,61,.8)); }
+  text { fill: var(--fog); font: 9px var(--mono); letter-spacing: 1px; }
+  .map-status { position: absolute; bottom: 1.25rem; left: 1.25rem; color: var(--fog); font: 9px var(--mono); text-transform: uppercase; letter-spacing: .1em; }
+  .map-status i { display: inline-block; width: 6px; height: 6px; margin-right: .5rem; border-radius: 50%; background: var(--signal); box-shadow: 0 0 10px var(--signal); }
+  @keyframes drift { to { stroke-dashoffset: -200; } }
+  @media (prefers-reduced-motion: reduce) { .path { animation: none; } }
+</style>

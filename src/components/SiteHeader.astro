@@ -1,0 +1,22 @@
+---
+const links = [{ href: '/work/', label: 'Work' }, { href: '/lab/', label: 'Lab' }, { href: '/about/', label: 'About' }];
+const path = Astro.url.pathname;
+---
+<header class="header container">
+  <a class="wordmark" href="/" aria-label="Sergey Baranov home"><span>SB</span><small>/ 01—26</small></a>
+  <nav aria-label="Primary navigation">
+    {links.map((link) => <a class:list={{ active: path.startsWith(link.href) }} href={link.href}>{link.label}</a>)}
+  </nav>
+  <a class="header-contact" href="/contact/">Let’s talk <span>↗</span></a>
+</header>
+<style>
+  .header { min-height: 5.5rem; display: flex; align-items: center; justify-content: space-between; border-bottom: 1px solid var(--rule); font: .72rem var(--mono); }
+  .wordmark { display: flex; align-items: baseline; gap: .65rem; color: var(--paper); }
+  .wordmark span { color: var(--signal); font: 700 1.5rem var(--display); letter-spacing: -.08em; }
+  .wordmark small { color: var(--fog); font-size: .6rem; }
+  nav { display: flex; gap: clamp(1rem, 3vw, 3rem); color: var(--fog); }
+  nav a { position: relative; padding-block: .5rem; } nav a::before { content: ''; position: absolute; left: 0; bottom: 0; width: 0; height: 2px; background: var(--signal); transition: width .3s var(--ease); }
+  nav a:hover, nav a.active { color: var(--paper); } nav a:hover::before, nav a.active::before { width: 100%; }
+  .header-contact { color: var(--signal); } .header-contact span { display: inline-block; transition: transform .3s var(--ease); } .header-contact:hover span { transform: translate(3px, -3px); }
+  @media (max-width: 600px) { .header { min-height: 4.5rem; } nav { gap: .8rem; } .header-contact { display: none; } .wordmark small { display: none; } }
+</style>

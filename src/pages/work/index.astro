@@ -1,0 +1,8 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro'; import WorkCard from '../../components/WorkCard.astro'; import { getCollection } from 'astro:content';
+const work = (await getCollection('work')).sort((a,b) => b.data.year - a.data.year);
+---
+<BaseLayout title="Work — Sergey Baranov"><section class="intro container"><p class="eyebrow">01 / Selected work</p><h1 class="display">Useful things,<br /><em>made clear.</em></h1><p>Selected collaborations across product interfaces, frontend systems, and the unruly middle where a good idea becomes something people can use.</p></section><section class="grid container">{work.map((entry) => <WorkCard entry={entry} />)}</section></BaseLayout>
+<style>
+ .intro { padding-block: 8rem 5rem; } h1 { margin: 1.5rem 0; font-size: clamp(4rem, 10vw, 10rem); line-height: .82; } .intro > p:last-child { max-width: 34rem; color: var(--fog); line-height: 1.7; } .grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 4rem 1.5rem; padding-bottom: 10rem; } @media(max-width:700px){.intro{padding-block:5rem 3rem}.grid{grid-template-columns:1fr;gap:3rem}}
+</style>
