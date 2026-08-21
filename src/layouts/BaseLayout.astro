@@ -3,7 +3,7 @@ import '../styles/global.css';
 import SiteHeader from '../components/SiteHeader.astro';
 import SiteFooter from '../components/SiteFooter.astro';
 interface Props { title?: string; description?: string; }
-const { title = 'Sergey Baranov — Senior web developer', description = 'A senior web developer turning complex systems into clear, useful products.' } = Astro.props;
+const { title = 'Sergey Baranov — Frontend web developer', description = 'Frontend web developer at AnyChart. Product interfaces, charting systems, and the runtime tooling underneath them.' } = Astro.props;
 const site = Astro.site ?? new URL('https://rkkmkkfx.dev');
 const canonical = new URL(Astro.url.pathname, site).href;
 const ogImage = new URL('/static/img/generated/play-stage-v2.png', site).href;
@@ -11,12 +11,26 @@ const person = {
   '@context': 'https://schema.org',
   '@type': 'Person',
   name: 'Sergey Baranov',
-  alternateName: 'rkkmkkfx',
-  jobTitle: 'Senior Web Developer',
+  alternateName: ['rkkmkkfx', 'Sergei Baranov', 'RKKMKKFX'],
+  jobTitle: 'Frontend Web Developer',
+  worksFor: {
+    '@type': 'Organization',
+    name: 'AnyChart',
+    url: 'https://www.anychart.com',
+  },
   url: 'https://rkkmkkfx.dev/',
   email: 'mailto:hello@rkkmkkfx.dev',
-  knowsAbout: ['UI architecture', 'Rendering systems', 'Data interfaces', 'Browser runtime', 'Developer tooling'],
-  sameAs: ['https://github.com/rkkmkkfx', 'https://www.linkedin.com/in/rkkmkkfx/'],
+  address: {
+    '@type': 'PostalAddress',
+    addressCountry: 'AM',
+  },
+  knowsAbout: ['UI architecture', 'Rendering systems', 'Data interfaces', 'Browser runtime', 'Developer tooling', 'Data visualization'],
+  sameAs: [
+    'https://github.com/rkkmkkfx',
+    'https://www.linkedin.com/in/rkkmkkfx/',
+    'https://t.me/rkkmkkfx',
+    'https://soundcloud.com/martianskymusic',
+  ],
 };
 ---
 <!doctype html>
