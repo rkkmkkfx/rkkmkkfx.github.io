@@ -276,6 +276,7 @@ const   actors = {
         },
         parser = new LevelParser(actors);
 loadLevels()
-	.then(plans => runGame(JSON.parse(plans), parser, DOMDisplay))
-	.then(() => alert('Вы выиграли приз!'))
+	.then(plans => waitForStart().then(() => runGame(JSON.parse(plans), parser, DOMDisplay)))
+	.then(() => waitForReplay())
+	.then(() => location.reload())
 	.catch(err => alert(err));
