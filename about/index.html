@@ -1,0 +1,46 @@
+<!DOCTYPE html><html lang="en" data-astro-cid-z4jru4n3><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width"><meta name="description" content="A senior web developer turning complex systems into clear, useful products."><meta name="theme-color" content="#07090c"><title>About — Sergey Baranov</title><link rel="stylesheet" href="/_astro/BaseLayout.DUKksc5S.css"><style>.about[data-astro-cid-ta2fbyqs]{padding-block:8rem 12rem}.about[data-astro-cid-ta2fbyqs] h1[data-astro-cid-ta2fbyqs]{margin:1.5rem 0 7rem;font-size:clamp(4.5rem,11vw,11rem);line-height:.8}.columns[data-astro-cid-ta2fbyqs]{border-top:1px solid var(--rule);grid-template-columns:1.2fr .8fr;gap:5rem;padding-top:2rem;display:grid}.columns[data-astro-cid-ta2fbyqs]>div[data-astro-cid-ta2fbyqs]:first-child{max-width:38rem}.columns[data-astro-cid-ta2fbyqs] p[data-astro-cid-ta2fbyqs]{color:var(--fog);line-height:1.8}.lead[data-astro-cid-ta2fbyqs]{font-size:1.45rem;color:var(--paper)!important;line-height:1.45!important}.facts[data-astro-cid-ta2fbyqs] p[data-astro-cid-ta2fbyqs]{font:1rem/2 var(--mono);color:var(--paper)}@media (width<=700px){.about[data-astro-cid-ta2fbyqs]{padding-block:5rem 8rem}.about[data-astro-cid-ta2fbyqs] h1[data-astro-cid-ta2fbyqs]{margin-bottom:4rem}.columns[data-astro-cid-ta2fbyqs]{grid-template-columns:1fr;gap:3rem}}
+</style></head><body data-astro-cid-z4jru4n3><span class="scroll-progress" aria-hidden="true" data-astro-cid-z4jru4n3></span><a class="skip-link" href="#main" data-astro-cid-z4jru4n3>Skip to content</a><header class="header container" data-astro-cid-fzpbxy5g><a class="wordmark" href="/" aria-label="Sergey Baranov home" data-astro-cid-fzpbxy5g><span data-astro-cid-fzpbxy5g>SB</span><small data-astro-cid-fzpbxy5g>/ SIDE A</small></a><nav aria-label="Primary navigation" data-astro-cid-fzpbxy5g><a href="/work/" data-astro-cid-fzpbxy5g>Work</a><a href="/lab/" data-astro-cid-fzpbxy5g>Lab</a><a class="active" href="/about/" data-astro-cid-fzpbxy5g>About</a></nav><a class="header-contact" href="/contact/" data-astro-cid-fzpbxy5g>Let’s talk <span data-astro-cid-fzpbxy5g>↗</span></a></header><main id="main" data-astro-cid-z4jru4n3><section class="about container" data-astro-cid-ta2fbyqs><p class="eyebrow" data-astro-cid-ta2fbyqs>03 / About</p><h1 class="display" data-astro-cid-ta2fbyqs>A developer who<br data-astro-cid-ta2fbyqs><em data-astro-cid-ta2fbyqs>stays curious.</em></h1><div class="columns" data-astro-cid-ta2fbyqs><div data-astro-cid-ta2fbyqs><p class="lead" data-astro-cid-ta2fbyqs>I’m Sergey, a web developer who likes the point where a product idea becomes a real, navigable thing.</p><p data-astro-cid-ta2fbyqs>I care about the connective tissue: the words, states, transitions, and technical decisions that make an interface feel obvious once it exists.</p></div><div class="facts" data-astro-cid-ta2fbyqs><span class="eyebrow" data-astro-cid-ta2fbyqs>Currently useful with</span><p data-astro-cid-ta2fbyqs>TypeScript<br data-astro-cid-ta2fbyqs>Astro / Next.js<br data-astro-cid-ta2fbyqs>React<br data-astro-cid-ta2fbyqs>Node.js<br data-astro-cid-ta2fbyqs>Design systems<br data-astro-cid-ta2fbyqs>Data-heavy interfaces</p></div></div></section></main><footer class="footer container" data-astro-cid-nns7i3if><span data-astro-cid-nns7i3if>© 2026 Sergey Baranov</span><span data-astro-cid-nns7i3if>Built for the web / built to last</span><a href="mailto:hello@rkkmkkfx.dev" data-astro-cid-nns7i3if>hello@rkkmkkfx.dev ↗</a><button class="chaos-toggle" type="button" data-chaos-toggle aria-label="Toggle chaos mode" data-astro-cid-nns7i3if>rkkmkkfx // perturb</button></footer></body></html><script>
+  const root = document.documentElement;
+  const reveals = document.querySelectorAll('[data-reveal]');
+  const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (reduced) reveals.forEach((el) => el.classList.add('is-visible'));
+  else {
+    const observer = new IntersectionObserver((entries) => entries.forEach((entry) => {
+      if (entry.isIntersecting) { entry.target.classList.add('is-visible'); observer.unobserve(entry.target); }
+    }), { threshold: 0.12, rootMargin: '0px 0px -8% 0px' });
+    reveals.forEach((el) => observer.observe(el));
+  }
+  let raf = 0;
+  const phases = [
+    { key: 'boot', label: 'BOOT', description: 'loading intent' },
+    { key: 'map', label: 'MAP', description: 'shaping the system' },
+    { key: 'work', label: 'WORK', description: 'making it useful' },
+    { key: 'shipped', label: 'SHIPPED', description: 'in the hands of people' },
+  ];
+  const setPhase = (progress) => {
+    const phase = phases[Math.min(phases.length - 1, Math.floor(progress * phases.length))];
+    document.body.dataset.phase = phase.key;
+    document.querySelectorAll('[data-phase-label]').forEach((el) => { el.textContent = phase.label; });
+    document.querySelectorAll('[data-phase-description]').forEach((el) => { el.textContent = phase.description; });
+    document.querySelectorAll('[data-system-map]').forEach((el) => { el.dataset.phase = phase.key; });
+    document.dispatchEvent(new CustomEvent('portfolio:phase', { detail: phase.key }));
+  };
+  const updateScroll = () => {
+    raf = 0;
+    const max = document.documentElement.scrollHeight - window.innerHeight;
+    const progress = max > 0 ? window.scrollY / max : 0;
+    root.style.setProperty('--scroll-progress', progress.toFixed(3));
+    setPhase(progress);
+    document.querySelectorAll('[data-parallax]').forEach((el) => {
+      const box = el.getBoundingClientRect();
+      const amount = Math.max(-1, Math.min(1, (window.innerHeight / 2 - (box.top + box.height / 2)) / window.innerHeight));
+      el.style.setProperty('--parallax-y', `${(amount * 22).toFixed(1)}px`);
+    });
+  };
+  window.addEventListener('scroll', () => { if (!raf) raf = requestAnimationFrame(updateScroll); }, { passive: true });
+  updateScroll();
+  document.querySelector('[data-chaos-toggle]')?.addEventListener('click', () => {
+    document.body.toggleAttribute('data-chaos');
+    document.querySelector('[data-chaos-toggle]')?.setAttribute('aria-pressed', document.body.hasAttribute('data-chaos') ? 'true' : 'false');
+  });
+</script>

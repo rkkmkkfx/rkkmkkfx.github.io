@@ -1,1 +1,0 @@
-(self.webpackChunk_N_E=self.webpackChunk_N_E||[]).push([[501],{333:(l,_,e)=>{Promise.resolve().then(e.t.bind(e,8499,23)),Promise.resolve().then(e.t.bind(e,7970,23))},8499:l=>{l.exports={root:"Skills_root___uog1",cell:"Skills_cell__uXUEk",img:"Skills_img___dNq6",label:"Skills_label__kd6j7"}}},l=>{var _=_=>l(l.s=_);l.O(0,[352,970,441,517,358],()=>_(333)),_N_E=l.O()}]);
