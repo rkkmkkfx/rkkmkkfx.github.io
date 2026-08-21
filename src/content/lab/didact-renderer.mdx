@@ -1,0 +1,23 @@
+---
+title: Learning a renderer from first principles
+date: 2022-05-14
+status: 'Shipped'
+summary: 'A tutorial-based React-like renderer study that made hooks, reconciliation, and rendering tangible.'
+tags: ['TypeScript', 'Rendering', 'React internals']
+---
+
+I wanted to understand the part of React that usually stays invisible: how a tree becomes pixels, and how a small state change can update only what matters. This project began as a study of an existing tutorial and repository, rather than an original renderer design.
+
+That study became [Didact](https://github.com/rkkmkkfx/didact), a personal implementation and extension of those ideas. It started with elements and a render loop, then grew into a TypeScript rewrite with a fiber-style work loop, function components, hooks, tests, and an npm package.
+
+The useful lesson was not “I rebuilt React.” It was learning — through the tutorial and my own extensions — to separate scheduling, reconciliation, and commit work into explicit stages. Once those boundaries were visible, interface complexity became something I could reason about instead of something I had to memorize.
+
+## Why it belongs here
+
+The current portfolio is interested in the same question from a different angle: how do we make systems feel playable? Didact is the deepest version of that question in my archive — a renderer turned into a small instrument for thinking.
+
+## Credit
+
+This work follows the structure and teaching of [Build your own React](https://pomb.us/build-your-own-react/) by Rodrigo Pombo. The tutorial deserves credit for the foundation; my repository records the TypeScript rewrite, experiments, tests, and packaging work built while studying it.
+
+<a class="note-link" href="https://github.com/rkkmkkfx/didact">Open the source ↗</a>

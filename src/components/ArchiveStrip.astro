@@ -7,7 +7,7 @@ const archive = [
 ];
 ---
 <section class="archive container rule" aria-labelledby="archive-title">
-  <div class="archive-head"><p class="eyebrow" id="archive-title">03 / Personal archive</p><span class="archive-code">rkkmkkfx / memory lane</span></div>
+  <div class="archive-head"><p class="eyebrow" id="archive-title">INSERT COIN / PERSONAL ARCHIVE</p><span class="archive-code">rkkmkkfx / crate dig</span></div>
   <p class="archive-intro">Before the systems had names, there were strange little sites, borrowed images, and the stubborn decision to keep learning.</p>
   <div class="archive-grid">
     {archive.map((item, index) => <figure class:list={{ [`archive-item-${index + 1}`]: true }}><div class="archive-image"><img src={item.src} alt={item.alt} loading="lazy" /></div><figcaption><span>{item.label}</span><span>0{index + 1}</span></figcaption></figure>)}
@@ -21,7 +21,7 @@ const archive = [
   .archive-grid { display: grid; grid-template-columns: 1.35fr .8fr .7fr 1fr; gap: .75rem; align-items: end; }
   figure { margin: 0; } .archive-image { position: relative; aspect-ratio: 1.2; overflow: hidden; background: var(--surface); filter: grayscale(1) contrast(1.15); transition: filter .5s ease, transform .5s var(--ease); }
   figure:nth-child(even) .archive-image { aspect-ratio: .85; transform: rotate(1.5deg); } figure:nth-child(3) .archive-image { transform: rotate(-2deg); }
-  figure:hover .archive-image { filter: grayscale(0) contrast(1); transform: rotate(0) scale(1.04); } .archive-image img { width: 100%; height: 100%; object-fit: cover; mix-blend-mode: screen; opacity: .8; }
+  figure:hover .archive-image { filter: grayscale(0) contrast(1.3) saturate(1.2); transform: rotate(0) scale(1.04); } .archive-image img { width: 100%; height: 100%; object-fit: cover; mix-blend-mode: screen; opacity: .72; }
   figcaption { display: flex; justify-content: space-between; padding-top: .6rem; color: var(--fog); font: .6rem var(--mono); text-transform: uppercase; } figcaption span:first-child { color: var(--paper); }
   @media(max-width:700px){ .archive-grid{grid-template-columns:repeat(2,1fr)} .archive-item-2 .archive-image,.archive-item-3 .archive-image{aspect-ratio:1} }
 </style>

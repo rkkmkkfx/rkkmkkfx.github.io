@@ -1,35 +1,100 @@
 <div class="system-map" data-system-map aria-label="A system map showing intent becoming interface and shipped work">
   <svg viewBox="0 0 600 480" role="img" aria-hidden="true">
+    <defs>
+      <filter id="map-glow" x="-100%" y="-100%" width="300%" height="300%">
+        <feGaussianBlur stdDeviation="4" result="blur" />
+        <feMerge><feMergeNode in="blur" /><feMergeNode in="SourceGraphic" /></feMerge>
+      </filter>
+      <linearGradient id="route-signal" x1="0" x2="1">
+        <stop offset="0" stop-color="#d8ff3e" stop-opacity="0" />
+        <stop offset=".5" stop-color="#d8ff3e" />
+        <stop offset="1" stop-color="#68e2ff" stop-opacity=".2" />
+      </linearGradient>
+      <pattern id="micro-grid" width="24" height="24" patternUnits="userSpaceOnUse">
+        <path d="M24 0H0V24" fill="none" stroke="#f1f0eb" stroke-opacity=".07" stroke-width=".5" />
+      </pattern>
+    </defs>
+    <rect class="micro-grid" x="0" y="0" width="600" height="480" />
+    <g class="orbit orbit-back" fill="none" stroke="#68e2ff" stroke-opacity=".16">
+      <ellipse cx="296" cy="240" rx="148" ry="64" />
+      <ellipse cx="296" cy="240" rx="148" ry="64" transform="rotate(60 296 240)" />
+      <ellipse cx="296" cy="240" rx="148" ry="64" transform="rotate(120 296 240)" />
+    </g>
+    <g class="orbit orbit-front" fill="none" stroke="#d8ff3e" stroke-opacity=".24">
+      <ellipse cx="296" cy="240" rx="96" ry="38" transform="rotate(-25 296 240)" />
+    </g>
+    <path class="route-glow" d="M78 98 C180 98 150 240 296 240 S410 95 520 95" />
     <path class="path path-one" d="M78 98 C180 98 150 240 296 240 S410 95 520 95" />
     <path class="path path-two" d="M78 380 C190 380 165 240 296 240 S420 380 520 380" />
     <path class="path path-three" d="M296 240 V58" />
+    <g class="route-packets" aria-hidden="true">
+      <circle class="packet packet-one" r="3"><animateMotion dur="4.8s" repeatCount="1" path="M78 98 C180 98 150 240 296 240 S410 95 520 95" /></circle>
+      <circle class="packet packet-two" r="2"><animateMotion dur="6.4s" repeatCount="1" path="M78 380 C190 380 165 240 296 240 S420 380 520 380" /></circle>
+    </g>
     <circle class="node node-a" cx="78" cy="98" r="7" /><circle class="node node-b" cx="78" cy="380" r="7" />
-    <circle class="node node-core" cx="296" cy="240" r="12" /><circle class="node node-c" cx="520" cy="95" r="7" /><circle class="node node-d" cx="520" cy="380" r="7" />
+    <circle class="node node-core" cx="296" cy="240" r="12" /><circle class="node-core-halo" cx="296" cy="240" r="25" /><circle class="node node-c" cx="520" cy="95" r="7" /><circle class="node node-d" cx="520" cy="380" r="7" />
     <text x="48" y="75">INTENT</text><text x="42" y="412">CONTEXT</text><text x="260" y="34">SYSTEM</text><text x="475" y="72">INTERFACE</text><text x="476" y="412">SHIPPED</text>
+    <text class="telemetry" x="34" y="454">X: <tspan id="map-x-readout">000</tspan> / Y: <tspan id="map-y-readout">000</tspan></text>
+    <text class="telemetry telemetry-right" x="464" y="454">LIVE / 60 FPS</text>
   </svg>
+  <span class="scanline" aria-hidden="true"></span>
   <span class="map-status"><i></i> system online / 01</span>
 </div>
 <style>
-  .system-map { --map-x: 0px; --map-y: 0px; position: relative; min-height: 30rem; display: grid; place-items: center; border: 1px solid var(--rule); background: radial-gradient(circle at calc(50% + var(--map-x)) calc(50% + var(--map-y)), rgba(114,167,255,.18), transparent 45%), var(--surface); overflow: hidden; transition: background-position .8s var(--ease); }
+  .system-map { --map-x: 0px; --map-y: 0px; position: relative; min-height: 30rem; display: grid; place-items: center; border: 1px solid var(--rule); background: radial-gradient(circle at calc(50% + var(--map-x)) calc(50% + var(--map-y)), rgba(104,226,255,.18), transparent 45%), var(--surface); overflow: hidden; transition: background-position .8s var(--ease), border-color .4s ease; }
+  .system-map:hover { border-color: rgba(216,255,62,.6); }
   .system-map::after { content: ''; position: absolute; inset: 1rem; border: 1px solid rgba(241,240,235,.05); pointer-events: none; }
-  svg { width: 100%; max-width: 600px; overflow: visible; transform: translate(var(--map-x), var(--map-y)) scale(calc(1 + var(--scroll-progress, 0) * .025)); transition: transform .45s var(--ease); }
-  .path { fill: none; stroke: rgba(241,240,235,.2); stroke-width: 1; stroke-dasharray: 5 9; animation: drift 18s linear infinite; }
+  svg { position: relative; z-index: 1; width: 100%; max-width: 600px; overflow: visible; transform: translate(var(--map-x), var(--map-y)) scale(.92); opacity: .15; filter: saturate(.3); transition: transform 1.1s var(--ease), opacity .7s var(--ease), filter .7s ease; }
+  .system-map::before { content: 'INITIALIZING'; position: absolute; z-index: 3; top: 1.25rem; right: 1.25rem; color: var(--signal); font: .55rem var(--mono); letter-spacing: .12em; opacity: 0; transition: opacity .3s ease; }
+  .micro-grid { fill: url(#micro-grid); opacity: .15; transition: opacity 1.4s var(--ease); }
+  .orbit { transform-box: fill-box; transform-origin: center; opacity: .28; transition: opacity .6s var(--ease), transform .8s var(--ease); }
+  .orbit-front { opacity: .12; }
+  .route-glow { fill: none; stroke: url(#route-signal); stroke-width: 7; stroke-linecap: round; opacity: 0; filter: url(#map-glow); transition: opacity .8s var(--ease); }
+  .path { fill: none; stroke: rgba(241,240,235,.2); stroke-width: 1; stroke-dasharray: 1000; stroke-dashoffset: 1000; transition: stroke-dashoffset 1.2s var(--ease), opacity .5s ease; }
   .path-one { stroke: var(--signal); stroke-opacity: .7; } .path-three { stroke: var(--current); stroke-opacity: .65; }
-  .node { fill: var(--ink); stroke: var(--fog); stroke-width: 1.5; } .node-core { fill: var(--signal); stroke: var(--signal); filter: drop-shadow(0 0 14px rgba(255,106,61,.8)); }
-  text { fill: var(--fog); font: 9px var(--mono); letter-spacing: 1px; }
+  .packet { fill: var(--signal); filter: url(#map-glow); opacity: 0; transition: opacity .4s ease; } .packet-two { fill: var(--current); }
+  .node { fill: var(--ink); stroke: var(--fog); stroke-width: 1.5; transition: fill .4s ease, stroke .4s ease, opacity .5s ease; } .node-core { fill: var(--signal); stroke: var(--signal); filter: drop-shadow(0 0 14px rgba(216,255,62,.7)); }
+  .node-core-halo { fill: none; stroke: var(--signal); stroke-width: 1; opacity: 0; transform-box: fill-box; transform-origin: center; transition: opacity .5s ease; }
+  text { fill: var(--fog); font: 9px var(--mono); letter-spacing: 1px; } .telemetry { fill: rgba(241,240,235,.35); font-size: 7px; letter-spacing: .8px; } .telemetry-right { text-anchor: end; }
+  .scanline { position: absolute; z-index: 2; left: 1rem; right: 1rem; height: 1px; background: linear-gradient(90deg, transparent, var(--signal), transparent); opacity: 0; pointer-events: none; transition: opacity .4s ease; }
+  .system-map.is-booting::before { opacity: 1; animation: terminal-blink .5s steps(2, end) infinite; }
+  .system-map.is-live svg { transform: translate(var(--map-x), var(--map-y)) scale(calc(1 + var(--scroll-progress, 0) * .025)); opacity: 1; filter: none; }
+  .system-map.is-live .micro-grid { opacity: calc(.35 + var(--scroll-progress, 0) * .45); }
+  [data-phase="boot"] .path { opacity: .25; } [data-phase="map"] .path, [data-phase="work"] .path, [data-phase="shipped"] .path { stroke-dashoffset: 0; } [data-phase="map"] .route-glow, [data-phase="work"] .route-glow, [data-phase="shipped"] .route-glow { opacity: .14; } [data-phase="map"] .packet, [data-phase="work"] .packet, [data-phase="shipped"] .packet { opacity: 1; } [data-phase="map"] .node-core-halo, [data-phase="work"] .node-core-halo { opacity: .65; animation: core-pulse 2.4s ease-out infinite; } [data-phase="work"] .orbit, [data-phase="shipped"] .orbit { opacity: .45; } [data-phase="work"] .scanline, [data-phase="shipped"] .scanline { opacity: .35; animation: scan 3.8s var(--ease) 1; }
   .map-status { position: absolute; bottom: 1.25rem; left: 1.25rem; color: var(--fog); font: 9px var(--mono); text-transform: uppercase; letter-spacing: .1em; }
   .map-status i { display: inline-block; width: 6px; height: 6px; margin-right: .5rem; border-radius: 50%; background: var(--signal); box-shadow: 0 0 10px var(--signal); }
-  @keyframes drift { to { stroke-dashoffset: -200; } }
-  @media (prefers-reduced-motion: reduce) { .path { animation: none; } }
+  @keyframes core-pulse { 0% { opacity: .75; transform: scale(.7); } 80%, 100% { opacity: 0; transform: scale(1.8); } } @keyframes scan { 0% { transform: translateY(-13rem); } 100% { transform: translateY(13rem); } } @keyframes terminal-blink { 50% { opacity: .3; } }
+  @media (prefers-reduced-motion: reduce) { .node-core-halo, .scanline, .system-map::before { animation: none; } .scanline { display: none; } .system-map svg { opacity: 1; filter: none; transform: none; } }
 </style>
 <script>
   const map = document.querySelector('[data-system-map]');
-  if (map && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+  const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (map) {
+    map.classList.add(reducedMotion ? 'is-live' : 'is-booting');
+    const motions = [...map.querySelectorAll('animateMotion')];
+    const boot = () => {
+      map.classList.remove('is-booting');
+      map.classList.add('is-live');
+      motions.forEach((motion) => { try { motion.beginElement(); } catch {} });
+    };
+    if (!reducedMotion) window.setTimeout(boot, 180);
+    document.addEventListener('portfolio:phase', (event) => {
+      if (reducedMotion || !['map', 'work', 'shipped'].includes(event.detail)) return;
+      motions.forEach((motion) => { try { motion.beginElement(); } catch {} });
+    });
+  }
+  if (map && !reducedMotion) {
+    const xReadout = map.querySelector('#map-x-readout');
+    const yReadout = map.querySelector('#map-y-readout');
     map.addEventListener('pointermove', (event) => {
       const rect = map.getBoundingClientRect();
-      map.style.setProperty('--map-x', `${((event.clientX - rect.left) / rect.width - .5) * 18}px`);
-      map.style.setProperty('--map-y', `${((event.clientY - rect.top) / rect.height - .5) * 18}px`);
+      const x = ((event.clientX - rect.left) / rect.width - .5) * 18;
+      const y = ((event.clientY - rect.top) / rect.height - .5) * 18;
+      map.style.setProperty('--map-x', `${x}px`);
+      map.style.setProperty('--map-y', `${y}px`);
+      if (xReadout) xReadout.textContent = `${String(Math.round(x + 50)).padStart(3, '0')}`;
+      if (yReadout) yReadout.textContent = `${String(Math.round(y + 50)).padStart(3, '0')}`;
     });
-    map.addEventListener('pointerleave', () => { map.style.setProperty('--map-x', '0px'); map.style.setProperty('--map-y', '0px'); });
+    map.addEventListener('pointerleave', () => { map.style.setProperty('--map-x', '0px'); map.style.setProperty('--map-y', '0px'); if (xReadout) xReadout.textContent = '000'; if (yReadout) yReadout.textContent = '000'; });
   }
 </script>

@@ -1,0 +1,143 @@
+---
+const bars = Array.from({ length: 42 }, (_, index) => {
+  const wave = Math.abs(Math.sin(index * 0.63)) * 0.7 + Math.abs(Math.cos(index * 0.21)) * 0.3;
+  return Math.round(14 + wave * 78);
+});
+const soundcloudUrl = 'https://soundcloud.com/martianskymusic/sets/rkkmkkfx';
+---
+<div class="play-deck" data-playdeck data-playing="false">
+  <div class="deck-top"><span class="deck-label">SIDE A / SOUNDCLOUD</span><span data-deck-time>00:00 / --:--</span></div>
+  <div class="deck-stage">
+    <img class="deck-cover" src="/static/img/generated/play-cover-v2.png" alt="" />
+    <div class="deck-core"><span class="deck-bpm">128 <small>BPM</small></span><span class="deck-state" data-deck-state>READY</span></div>
+    <svg class="deck-wave" viewBox="0 0 420 120" role="img" aria-label="Animated visual mix waveform">
+      {bars.map((height, index) => <rect class="wave-bar" x={index * 10 + 2} y={(120 - height) / 2} width="4" height={height} rx="2" style={`--bar-index:${index}`} />)}
+    </svg>
+    <span class="deck-cue cue-a">A</span><span class="deck-cue cue-b">B</span>
+  </div>
+  <div class="deck-controls"><div class="deck-actions"><button type="button" class="deck-play" data-deck-play aria-pressed="false"><span>▶</span> <b data-deck-play-label>Play track</b></button><button type="button" class="deck-mic" data-mic-toggle aria-pressed="false"><span>◎</span> Mic</button></div><span class="deck-hint" data-deck-hint>loading widget / soundcloud</span><span class="deck-index">01—SC</span></div>
+  <iframe class="soundcloud-widget" data-soundcloud-widget title="SoundCloud audio player" allow="autoplay" src={`https://w.soundcloud.com/player/?url=${encodeURIComponent(soundcloudUrl)}&auto_play=false&hide_related=true&show_comments=false&show_user=false&visual=false`}></iframe>
+</div>
+<script>
+  const deck = document.querySelector('[data-playdeck]');
+  if (deck) {
+    const play = deck.querySelector('[data-deck-play]');
+    const state = deck.querySelector('[data-deck-state]');
+    const time = deck.querySelector('[data-deck-time]');
+    const hint = deck.querySelector('[data-deck-hint]');
+    const label = deck.querySelector('[data-deck-play-label]');
+    const micButton = deck.querySelector('[data-mic-toggle]');
+    const bars = [...deck.querySelectorAll('.wave-bar')];
+    const frame = deck.querySelector('[data-soundcloud-widget]');
+    let widget;
+    let duration = 0;
+    let audioContext;
+    let analyser;
+    let micStream;
+    let micFrame;
+    const formatTime = (milliseconds) => { const seconds = Math.max(0, Math.floor(milliseconds / 1000)); return `${String(Math.floor(seconds / 60)).padStart(2, '0')}:${String(seconds % 60).padStart(2, '0')}`; };
+    const setProgress = (current, duration) => {
+      const ratio = duration ? Math.min(1, current / duration) : 0;
+      deck.style.setProperty('--play-progress', ratio.toFixed(3));
+      bars.forEach((bar, index) => bar.classList.toggle('is-past', index / bars.length <= ratio));
+      if (time) time.textContent = `${formatTime(current)} / ${formatTime(duration)}`;
+    };
+    const setPlaying = (playing) => {
+      deck.dataset.playing = String(playing);
+      play?.setAttribute('aria-pressed', String(playing));
+      if (state) state.textContent = playing ? 'PLAYING' : 'READY';
+      if (label) label.textContent = playing ? 'Pause track' : 'Play track';
+    };
+    const stopMic = () => {
+      if (micFrame) cancelAnimationFrame(micFrame);
+      micStream?.getTracks().forEach((track) => track.stop());
+      audioContext?.close();
+      micFrame = undefined; micStream = undefined; audioContext = undefined; analyser = undefined;
+      deck.dataset.mic = 'false';
+      micButton?.setAttribute('aria-pressed', 'false');
+      if (state && deck.dataset.playing !== 'true') state.textContent = 'READY';
+      if (hint) hint.textContent = 'connected / soundcloud';
+      bars.forEach((bar) => bar.classList.remove('is-mic'));
+    };
+    const animateMic = () => {
+      if (!analyser) return;
+      const values = new Uint8Array(analyser.frequencyBinCount);
+      analyser.getByteFrequencyData(values);
+      bars.forEach((bar, index) => {
+        const value = values[Math.floor(index / bars.length * values.length)] / 255;
+        bar.style.setProperty('--mic-level', `${Math.max(.12, value)}`);
+        bar.classList.add('is-mic');
+      });
+      micFrame = requestAnimationFrame(animateMic);
+    };
+    const startMic = async () => {
+      try {
+        micStream = await navigator.mediaDevices.getUserMedia({ audio: true });
+        audioContext = new AudioContext();
+        analyser = audioContext.createAnalyser();
+        analyser.fftSize = 128;
+        analyser.smoothingTimeConstant = .72;
+        audioContext.createMediaStreamSource(micStream).connect(analyser);
+        await audioContext.resume();
+        deck.dataset.mic = 'true';
+        micButton?.setAttribute('aria-pressed', 'true');
+        widget?.pause();
+        setPlaying(false);
+        if (state) state.textContent = 'MIC LIVE';
+        if (hint) hint.textContent = 'microphone / live waveform';
+        animateMic();
+      } catch {
+        stopMic();
+        if (state) state.textContent = 'MIC BLOCKED';
+        if (hint) hint.textContent = 'allow microphone access';
+      }
+    };
+    const connectWidget = () => new Promise((resolve, reject) => {
+      if (window.SC) return resolve(window.SC);
+      const script = document.createElement('script');
+      script.src = 'https://w.soundcloud.com/player/api.js';
+      script.onload = () => resolve(window.SC);
+      script.onerror = reject;
+      document.head.appendChild(script);
+    });
+    connectWidget().then((SC) => {
+      widget = SC.Widget(frame);
+      widget.bind(SC.Widget.Events.READY, () => { if (hint) hint.textContent = 'connected / soundcloud'; widget.getDuration((value) => { duration = value; setProgress(0, duration); }); });
+      widget.bind(SC.Widget.Events.PLAY, () => { if (deck.dataset.mic === 'true') stopMic(); setPlaying(true); });
+      widget.bind(SC.Widget.Events.PAUSE, () => setPlaying(false));
+      widget.bind(SC.Widget.Events.FINISH, () => { setPlaying(false); setProgress(0, 0); });
+      widget.bind(SC.Widget.Events.PLAY_PROGRESS, (event) => setProgress(event.currentPosition, duration));
+    }).catch(() => { if (state) state.textContent = 'OFFLINE'; if (hint) hint.textContent = 'widget unavailable'; });
+    play?.addEventListener('click', () => { if (widget) widget.toggle(); else if (hint) hint.textContent = 'connecting…'; });
+    micButton?.addEventListener('click', () => { if (deck.dataset.mic === 'true') stopMic(); else startMic(); });
+    deck.addEventListener('pointermove', (event) => {
+      const box = deck.getBoundingClientRect();
+      deck.style.setProperty('--deck-x', `${((event.clientX - box.left) / box.width - .5) * 10}px`);
+      deck.style.setProperty('--deck-y', `${((event.clientY - box.top) / box.height - .5) * 10}px`);
+    });
+    deck.addEventListener('pointerleave', () => { deck.style.setProperty('--deck-x', '0px'); deck.style.setProperty('--deck-y', '0px'); });
+  }
+</script>
+<style>
+  .play-deck { --deck-x: 0px; --deck-y: 0px; position: relative; padding: .8rem; border: 1px solid rgba(244,241,232,.26); background: #171923; box-shadow: 1rem 1rem 0 rgba(255,79,216,.12); transform: perspective(900px) rotateX(calc(var(--deck-y) * -.2deg)) rotateY(calc(var(--deck-x) * .2deg)); transition: transform .6s cubic-bezier(.22,1,.36,1), border-color .3s ease; }
+  .play-deck:hover { border-color: var(--club-pink); }
+  .deck-top, .deck-controls { display: flex; justify-content: space-between; gap: .8rem; align-items: center; color: var(--muted); font: .55rem var(--mono); letter-spacing: .1em; text-transform: uppercase; }
+  .deck-label { color: var(--arcade-green); } .deck-stage { position: relative; min-height: 25rem; margin: .8rem 0; overflow: hidden; display: grid; place-items: center; background: #090a0f; }
+  .deck-stage::before { content: ''; position: absolute; inset: 0; background: linear-gradient(90deg, transparent 49.8%, rgba(244,241,232,.15) 50%, transparent 50.2%), linear-gradient(0deg, transparent 49.8%, rgba(244,241,232,.15) 50%, transparent 50.2%); background-size: 25% 100%, 100% 25%; opacity: .35; }
+  .deck-cover { position: absolute; z-index: 0; inset: 0; width: 100%; height: 100%; object-fit: cover; opacity: .34; filter: saturate(1.35) contrast(1.15); mix-blend-mode: screen; border: 0; box-shadow: none; transform: scale(1.02); transition: transform 1.2s cubic-bezier(.22,1,.36,1), opacity .6s ease; }
+  .play-deck[data-playing="true"] .deck-cover { opacity: .52; transform: scale(1.08); }
+  .deck-core { position: relative; z-index: 3; display: grid; gap: .15rem; place-items: center; width: 9rem; height: 9rem; border: 1px solid var(--club-pink); border-radius: 50%; background: rgba(9,10,15,.82); box-shadow: 0 0 0 1rem rgba(255,79,216,.04), 0 0 4rem rgba(255,79,216,.28); }
+  .deck-bpm { color: var(--paper); font: 600 2.8rem/.8 var(--display); letter-spacing: -.08em; } .deck-bpm small { color: var(--club-pink); font: .5rem var(--mono); letter-spacing: .1em; }
+  .deck-state { color: var(--arcade-green); font: .55rem var(--mono); letter-spacing: .12em; }
+  .deck-wave { position: absolute; z-index: 2; inset: 0; width: 100%; height: 100%; opacity: .72; transform: translate(var(--deck-x), var(--deck-y)); transition: transform .4s ease; }
+  .wave-bar { fill: var(--club-pink); transform-origin: center; transform-box: fill-box; opacity: .6; } .wave-bar:nth-child(3n) { fill: var(--arcade-green); } .wave-bar:nth-child(5n) { fill: var(--console-blue); }
+  .wave-bar.is-past { opacity: 1; filter: drop-shadow(0 0 4px currentColor); }
+  .wave-bar.is-mic { opacity: calc(.35 + var(--mic-level, .2) * .65); transform: scaleY(var(--mic-level, .2)); filter: drop-shadow(0 0 5px currentColor); }
+  .play-deck[data-playing="true"] .wave-bar { animation: waveform .8s ease-in-out infinite alternate; animation-delay: calc(var(--bar-index) * -18ms); }
+  .deck-cue { position: absolute; z-index: 4; top: 1rem; display: grid; place-items: center; width: 1.4rem; height: 1.4rem; border: 1px solid currentColor; border-radius: 50%; font: .55rem var(--mono); } .cue-a { left: 1rem; color: var(--arcade-green); } .cue-b { right: 1rem; color: var(--console-blue); }
+  .deck-actions { display: flex; gap: .4rem; align-items: center; } .deck-play, .deck-mic { padding: .7rem .8rem; border: 1px solid var(--club-pink); background: transparent; color: var(--paper); cursor: pointer; font: .62rem var(--mono); letter-spacing: .06em; text-transform: uppercase; transition: background .3s ease, color .3s ease, border-color .3s ease; } .deck-play:hover, .play-deck[data-playing="true"] .deck-play { background: var(--club-pink); color: #090a0f; }
+  .deck-mic { border-color: var(--arcade-green); } .deck-mic:hover, .play-deck[data-mic="true"] .deck-mic { background: var(--arcade-green); color: #090a0f; } .deck-play span, .deck-mic span { color: var(--arcade-green); } .deck-hint { margin-left: auto; } .deck-index { color: var(--console-blue); }
+  .deck-play b { font: inherit; font-weight: 500; } .soundcloud-widget { position: absolute; width: 1px; height: 1px; border: 0; opacity: 0; pointer-events: none; }
+  @keyframes waveform { from { transform: scaleY(.35); } to { transform: scaleY(1); } }
+  @media (prefers-reduced-motion: reduce) { .play-deck, .deck-wave, .deck-cover { transform: none; transition: none; } .play-deck[data-playing="true"] .wave-bar { animation: none; } }
+</style>

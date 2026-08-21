@@ -1,15 +1,18 @@
 @import url('https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Manrope:wght@400;500;600;700;800&family=Roboto+Condensed:wght@400;500;600;700&display=swap');
 
 :root {
-  --ink: #111214; --paper: #f1f0eb; --fog: #a9aaa5; --signal: #ff6a3d; --current: #72a7ff;
-  --rule: rgba(241, 240, 235, .16); --surface: #1b1c1f;
+  --ink: #090a0f; --paper: #f4f1e8; --fog: #858394; --signal: #ff4fd8; --current: #5b6cff;
+  --club-pink: #ff4fd8; --arcade-green: #8cff38; --console-blue: #5b6cff; --muted: #858394;
+  --rule: rgba(244, 245, 240, .18); --surface: #10151c;
   --display: 'Roboto Condensed', sans-serif; --body: 'Manrope', sans-serif; --mono: 'DM Mono', monospace;
   --gutter: clamp(1.25rem, 4vw, 5rem); --ease: cubic-bezier(.22, 1, .36, 1);
   color-scheme: dark; font-family: var(--body); background: var(--ink); color: var(--paper);
 }
 * { box-sizing: border-box; }
 html { scroll-behavior: smooth; background: var(--ink); }
-body { margin: 0; min-width: 320px; background: var(--ink); color: var(--paper); }
+body { position: relative; margin: 0; min-width: 320px; background: var(--ink); color: var(--paper); }
+body::before { content: ''; position: fixed; z-index: -1; inset: 0; opacity: .16; pointer-events: none; background-image: linear-gradient(rgba(104,226,255,.12) 1px, transparent 1px), linear-gradient(90deg, rgba(104,226,255,.12) 1px, transparent 1px); background-size: 72px 72px; mask-image: linear-gradient(to bottom, black, transparent 72%); }
+body::after { content: ''; position: fixed; z-index: 40; inset: 0; pointer-events: none; opacity: .045; background: repeating-linear-gradient(0deg, transparent 0 3px, var(--paper) 4px); mix-blend-mode: screen; }
 ::selection { background: var(--signal); color: var(--ink); }
 a { color: inherit; text-decoration: none; } a:hover { color: var(--signal); }
 button, a { -webkit-tap-highlight-color: transparent; }
@@ -27,7 +30,7 @@ img { display: block; max-width: 100%; }
 .button--solid { background: var(--signal); border-color: var(--signal); color: var(--ink); }
 .button--solid::after { color: var(--ink); }
 .button--solid:hover { background: var(--paper); border-color: var(--paper); }
-[data-chaos] { --signal: #d8ff3e; --current: #ff3d81; }
+[data-chaos] { --signal: #ff3d81; --current: #d8ff3e; }
 [data-chaos] .system-map { animation: chaos-shiver .8s steps(2, end) infinite; }
 [data-chaos] .system-map::before { content: 'NOISE / PERSONAL MODE'; position: absolute; top: 1rem; right: 1rem; z-index: 2; color: var(--signal); font: .55rem var(--mono); letter-spacing: .1em; animation: blink .7s steps(2, end) infinite; }
 [data-chaos] .hero h1 { animation: text-wobble 1.2s ease-in-out infinite alternate; }

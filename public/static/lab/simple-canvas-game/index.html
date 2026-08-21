@@ -1,0 +1,21 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Simple Canvas Game</title>
+  <link rel="stylesheet" href="./css/main.css">
+  <style>
+    html,body{margin:0;background:#090a0f;color:#f4f1e8;font-family:monospace}
+    body{min-height:100vh;display:grid;place-items:center;padding:.5rem;box-sizing:border-box}
+    .game{width:100%;max-width:none!important;max-height:none!important;overflow:auto;border:1px solid #ff4fd8;box-shadow:10px 10px 0 rgba(255,79,216,.18)}
+    .background{background:#0b1020!important}
+    .wall{background:#5b6cff!important}.lava,.fireball{background:#ff4fd8!important}
+    .coin{background:#8cff38!important}.player{background:#f4f1e8!important}
+  </style>
+</head>
+<body>
+  <script src="./js/app.js"></script>
+  <script src="./game.js"></script>
+</body>
+</html>

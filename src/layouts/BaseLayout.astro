@@ -11,7 +11,7 @@ const { title = 'Sergey Baranov — Senior web developer', description = 'A seni
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width" />
     <meta name="description" content={description} />
-    <meta name="theme-color" content="#111214" />
+    <meta name="theme-color" content="#07090c" />
     <title>{title}</title>
   </head>
   <body>
@@ -34,11 +34,26 @@ const { title = 'Sergey Baranov — Senior web developer', description = 'A seni
     reveals.forEach((el) => observer.observe(el));
   }
   let raf = 0;
+  const phases = [
+    { key: 'boot', label: 'BOOT', description: 'loading intent' },
+    { key: 'map', label: 'MAP', description: 'shaping the system' },
+    { key: 'work', label: 'WORK', description: 'making it useful' },
+    { key: 'shipped', label: 'SHIPPED', description: 'in the hands of people' },
+  ];
+  const setPhase = (progress) => {
+    const phase = phases[Math.min(phases.length - 1, Math.floor(progress * phases.length))];
+    document.body.dataset.phase = phase.key;
+    document.querySelectorAll('[data-phase-label]').forEach((el) => { el.textContent = phase.label; });
+    document.querySelectorAll('[data-phase-description]').forEach((el) => { el.textContent = phase.description; });
+    document.querySelectorAll('[data-system-map]').forEach((el) => { el.dataset.phase = phase.key; });
+    document.dispatchEvent(new CustomEvent('portfolio:phase', { detail: phase.key }));
+  };
   const updateScroll = () => {
     raf = 0;
     const max = document.documentElement.scrollHeight - window.innerHeight;
     const progress = max > 0 ? window.scrollY / max : 0;
     root.style.setProperty('--scroll-progress', progress.toFixed(3));
+    setPhase(progress);
     document.querySelectorAll('[data-parallax]').forEach((el) => {
       const box = el.getBoundingClientRect();
       const amount = Math.max(-1, Math.min(1, (window.innerHeight / 2 - (box.top + box.height / 2)) / window.innerHeight));

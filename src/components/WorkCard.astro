@@ -1,20 +1,23 @@
 ---
 import type { CollectionEntry } from 'astro:content';
-interface Props { entry: CollectionEntry<'work'>; featured?: boolean; }
-const { entry, featured = false } = Astro.props;
+interface Props { entry: CollectionEntry<'work'>; featured?: boolean; track?: number; }
+const { entry, featured = false, track = 1 } = Astro.props;
 const { data } = entry;
 ---
 <a class:list={{ card: true, featured }} href={`/work/${entry.id}/`} data-reveal data-tilt>
-  <div class="media"><img src={data.image} alt={`${data.title} project preview`} loading="lazy" /><span class="year">{data.year}</span></div>
-  <div class="copy"><div><span class="eyebrow">{data.role}</span><h3>{data.title}</h3></div><span class="arrow">↗</span></div>
+  <div class="sleeve">
+    <div class="art"><img src={data.image} alt={`${data.title} project preview`} loading="lazy" /><span class="art-grid"></span><span class="catalogue">{String(track).padStart(2, '0')} / {data.year}</span></div>
+    <div class="record"><span class="label">SB<br /><small>{String(track).padStart(2, '0')}</small></span></div>
+    <span class="side">SIDE A</span>
+  </div>
+  <div class="trackline"><span class="track-no">{String(track).padStart(2, '0')}</span><span class="track-rule"></span><span class="track-type">{data.role}</span><span class="arrow">↗</span></div>
+  <div class="copy"><h3>{data.title}</h3><span class="year">{data.year}</span></div>
   <p>{data.summary}</p>
 </a>
 <style>
-  .card { --tilt-x: 0deg; --tilt-y: 0deg; display: block; padding-bottom: 1.5rem; border-bottom: 1px solid var(--rule); transform: perspective(900px) rotateX(var(--tilt-x)) rotateY(var(--tilt-y)); transition: transform .6s var(--ease); } .card:hover { --lift: -6px; transform: perspective(900px) rotateX(var(--tilt-x)) rotateY(var(--tilt-y)) translateY(-6px); }
-  .media { position: relative; aspect-ratio: 16 / 10; margin-bottom: 1.2rem; overflow: hidden; background: var(--surface); }
-  .media img { width: 100%; height: 100%; object-fit: cover; filter: saturate(.7); transition: transform .8s var(--ease), filter .5s ease; } .card:hover img { transform: scale(1.05); filter: saturate(1); }
-  .year { position: absolute; top: .8rem; right: .8rem; padding: .4rem .5rem; background: var(--ink); color: var(--paper); font: .65rem var(--mono); }
-  .copy { display: flex; justify-content: space-between; gap: 1rem; } h3 { margin: .55rem 0 0; font: 600 clamp(1.8rem, 3vw, 3rem)/.9 var(--display); letter-spacing: -.045em; } .arrow { color: var(--signal); font-size: 1.5rem; } p { max-width: 32rem; margin: 1rem 0 0; color: var(--fog); font-size: .9rem; line-height: 1.6; }
+  .card{--tilt-x:0deg;--tilt-y:0deg;display:block;padding-bottom:1.5rem;border-bottom:1px solid var(--rule);transform:perspective(1000px) rotateX(var(--tilt-x)) rotateY(var(--tilt-y));transition:transform .6s var(--ease)}.card:hover{transform:perspective(1000px) rotateX(var(--tilt-x)) rotateY(var(--tilt-y)) translateY(-8px)}
+  .sleeve{position:relative;aspect-ratio:1/1;margin-bottom:1.25rem;overflow:hidden;background:#151621}.art{position:absolute;z-index:2;inset:0 12% 0 0;overflow:hidden;background:var(--surface);transition:transform .7s var(--ease)}.art img{width:100%;height:100%;object-fit:cover;filter:saturate(.65) contrast(1.05);transition:filter .5s var(--ease),transform .8s var(--ease)}.card:hover .art{transform:translateX(-5%)}.card:hover .art img{filter:saturate(1.05) contrast(1.08);transform:scale(1.04)}
+  .art-grid{position:absolute;inset:0;background:linear-gradient(90deg,transparent 49.5%,rgba(255,255,255,.18) 50%,transparent 50.5%),linear-gradient(0deg,transparent 49.5%,rgba(255,255,255,.14) 50%,transparent 50.5%);background-size:32px 32px;mix-blend-mode:screen;opacity:.3}.catalogue{position:absolute;left:.8rem;bottom:.8rem;color:var(--paper);font:.6rem var(--mono);letter-spacing:.08em}.record{position:absolute;z-index:1;top:8%;right:-15%;width:84%;aspect-ratio:1;border-radius:50%;background:repeating-radial-gradient(circle at center,#090a0f 0 2px,#171923 3px 4px);box-shadow:inset 0 0 0 1px #30313d,0 8px 18px rgba(0,0,0,.45);transition:transform .75s var(--ease)}.record::after{content:'';position:absolute;inset:43%;border-radius:50%;background:var(--signal);box-shadow:0 0 0 4px #090a0f}.label{position:absolute;z-index:1;inset:0;display:grid;place-content:center;text-align:center;color:var(--paper);font:700 1.25rem var(--display);line-height:.7;transform:rotate(12deg)}.label small{color:var(--arcade-green);font:.55rem var(--mono)}.card:hover .record{transform:translateX(19%) rotate(22deg)}.side{position:absolute;z-index:3;top:.8rem;right:.8rem;color:var(--arcade-green);font:.6rem var(--mono);letter-spacing:.12em}.trackline{display:flex;align-items:center;gap:.6rem;color:var(--fog);font:.6rem var(--mono);text-transform:uppercase}.track-no{color:var(--signal)}.track-rule{height:1px;flex:1;background:var(--rule)}.track-type{max-width:45%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.arrow{color:var(--signal);font-size:1.3rem}.copy{display:flex;align-items:baseline;justify-content:space-between;gap:1rem}.year{color:var(--current);font:.65rem var(--mono)}h3{margin:.65rem 0 0;font:600 clamp(1.8rem,3vw,3rem)/.9 var(--display);letter-spacing:-.045em}.card:hover h3{color:var(--signal)}p{max-width:32rem;margin:1rem 0 0;color:var(--fog);font-size:.9rem;line-height:1.6}
 </style>
 <script>
   if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {

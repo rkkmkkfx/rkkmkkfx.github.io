@@ -3,14 +3,15 @@ const links = [{ href: '/work/', label: 'Work' }, { href: '/lab/', label: 'Lab' 
 const path = Astro.url.pathname;
 ---
 <header class="header container">
-  <a class="wordmark" href="/" aria-label="Sergey Baranov home"><span>SB</span><small>/ 01—26</small></a>
+  <a class="wordmark" href="/" aria-label="Sergey Baranov home"><span>SB</span><small>/ SIDE A</small></a>
   <nav aria-label="Primary navigation">
     {links.map((link) => <a class:list={{ active: path.startsWith(link.href) }} href={link.href}>{link.label}</a>)}
   </nav>
   <a class="header-contact" href="/contact/">Let’s talk <span>↗</span></a>
 </header>
 <style>
-  .header { min-height: 5.5rem; display: flex; align-items: center; justify-content: space-between; border-bottom: 1px solid var(--rule); font: .72rem var(--mono); }
+  .header { min-height: 5.5rem; display: flex; align-items: center; justify-content: space-between; border-bottom: 1px solid var(--rule); font: .72rem var(--mono); position: relative; }
+  .header::before { content: 'LOCAL / ONLINE'; position: absolute; right: 0; bottom: -.95rem; color: var(--current); background: var(--ink); padding-left: .6rem; font-size: .48rem; letter-spacing: .1em; }
   .wordmark { display: flex; align-items: baseline; gap: .65rem; color: var(--paper); }
   .wordmark span { color: var(--signal); font: 700 1.5rem var(--display); letter-spacing: -.08em; }
   .wordmark small { color: var(--fog); font-size: .6rem; }

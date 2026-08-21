@@ -1,0 +1,19 @@
+---
+title: A tiny canvas game
+date: 2021-11-06
+status: 'Shipped'
+summary: 'A small browser game where input, timing, and drawing share one tight feedback loop.'
+tags: ['Canvas', 'JavaScript', 'Play']
+---
+
+Before interfaces became product surfaces, I liked them as little machines. [Simple Canvas Game](https://github.com/rkkmkkfx/simple-canvas-game) is one of those machines: a compact experiment in drawing a world, reading input, and making the next frame feel responsive.
+
+<div class="repo-game"><iframe src="/static/lab/simple-canvas-game/index.html" title="Simple Canvas Game" loading="lazy"></iframe></div>
+
+There is no framework hiding the loop. The browser gives the project a canvas, a clock, and a few events; the rest is a deliberate conversation between state and pixels. That constraint makes every detail legible — movement, collision, timing, and the satisfying delay between a key press and a visible reaction.
+
+## Why it belongs here
+
+The deck on the homepage is another kind of controller. Both experiments are about turning an abstract signal into something you can touch: press a button, change the state, see the system answer.
+
+<a class="note-link" href="https://github.com/rkkmkkfx/simple-canvas-game">Open the source ↗</a>
