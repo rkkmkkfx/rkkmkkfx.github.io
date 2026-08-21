@@ -1,0 +1,27 @@
+---
+title: A workflow that survives context resets
+date: 2026-07-30
+status: 'Shipped'
+summary: 'Reusable skills that push agent work through isolated worktrees, an adversarial review council, and verification that trusts exit codes instead of claims.'
+tags: ['Agent tooling', 'Git worktrees', 'Verification']
+---
+
+The failure mode of a coding agent is not that it writes bad code. It is that it writes plausible code and then tells you it works. Reasoning and execution get blended into one long conversation, and by the time the context window is full nobody — model or human — can tell which claims were checked.
+
+So I built a set of skills that separate the two. The workflow runs Scout → Roast → Plan → Build → Verify → Review → Learn, and each phase writes a compact handoff to disk. The next phase reads only that handoff plus whatever evidence it goes and fetches from the repository itself. Hosts that can reset context start each phase fresh; hosts that cannot are told to discard the prior phase's text and work from the handoff alone.
+
+## The council
+
+Before anything gets planned, the request is stress-tested by three personas. The Contrarian looks for failure modes, single points of failure, and over-engineering. The First-Principles Thinker asks what the smallest useful outcome is and which eighty percent of the scope can be deleted. The Maintainer asks who owns this in six months.
+
+They have to emit exactly one verdict — green light, reshape, or kill. Kill stops the task. Reshape sends it back for another round. It is a cheap ritual and it has killed more of my own ideas than I expected.
+
+## Verification that cannot be argued with
+
+Build work happens inside an isolated Git worktree, one per task. Verification is delegated to configured local commands, and exit codes are authoritative: a clean run contributes no logs at all, a failure exposes only filtered stderr. Required checks rerun until they pass or the task blocks after three attempts. A separate evaluator judges the acceptance criteria from the artifacts rather than from the builder's summary of its own work.
+
+That last part matters more than any of the tooling around it. The builder is never the witness.
+
+## What is in the set
+
+Five skills, written as markdown and shell rather than as a framework: task orchestration, plan-to-JIRA synchronisation with a local agenda cache, an interactive repo configuration command, a health-check command, and a post-review step that distils what was learned back into the repo. The repository is currently private.

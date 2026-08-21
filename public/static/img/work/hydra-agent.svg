@@ -1,0 +1,38 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 600" width="1200" height="600" role="img" aria-label="Six provider lanes converging into one routed agent core, streaming out to a single destination">
+  <defs>
+    <pattern id="hg" width="60" height="60" patternUnits="userSpaceOnUse">
+      <path d="M60 0H0v60" fill="none" stroke="#f4f1e8" stroke-opacity=".07" stroke-width="1"/>
+    </pattern>
+    <radialGradient id="hcore" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#ff4fd8" stop-opacity=".5"/>
+      <stop offset="100%" stop-color="#ff4fd8" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+  <rect width="1200" height="600" fill="#10151c"/>
+  <rect width="1200" height="600" fill="url(#hg)"/>
+  <g fill="none" stroke-width="2" stroke-opacity=".85">
+    <path d="M92 96 C300 96 340 300 528 300" stroke="#5b6cff"/>
+    <path d="M92 178 C300 178 360 300 528 300" stroke="#5b6cff"/>
+    <path d="M92 260 C300 260 400 300 528 300" stroke="#8cff38"/>
+    <path d="M92 342 C300 342 400 300 528 300" stroke="#8cff38"/>
+    <path d="M92 424 C300 424 360 300 528 300" stroke="#ff4fd8"/>
+    <path d="M92 506 C300 506 340 300 528 300" stroke="#ff4fd8"/>
+  </g>
+  <g fill="#090a0f" stroke="#f4f1e8" stroke-opacity=".35" stroke-width="1.5">
+    <rect x="60" y="82" width="28" height="28"/><rect x="60" y="164" width="28" height="28"/>
+    <rect x="60" y="246" width="28" height="28"/><rect x="60" y="328" width="28" height="28"/>
+    <rect x="60" y="410" width="28" height="28"/><rect x="60" y="492" width="28" height="28"/>
+  </g>
+  <circle cx="600" cy="300" r="180" fill="url(#hcore)"/>
+  <circle cx="600" cy="300" r="108" fill="none" stroke="#ff4fd8" stroke-width="3"/>
+  <circle cx="600" cy="300" r="66" fill="none" stroke="#f4f1e8" stroke-opacity=".4" stroke-width="1.5"/>
+  <circle cx="600" cy="300" r="16" fill="#ff4fd8"/>
+  <path d="M708 300h404" fill="none" stroke="#f4f1e8" stroke-opacity=".5" stroke-width="2" stroke-dasharray="12 9"/>
+  <path d="M1096 288l24 12-24 12z" fill="#8cff38"/>
+  <g font-family="DM Mono, ui-monospace, monospace" font-size="19" letter-spacing="2.6">
+    <text x="60" y="56" fill="#858394">PROVIDERS</text>
+    <text x="404" y="152" fill="#ff4fd8">ROUTE</text>
+    <text x="906" y="268" fill="#8cff38">STREAM</text>
+    <text x="404" y="470" fill="#858394">HYDRA / RUST</text>
+  </g>
+</svg>

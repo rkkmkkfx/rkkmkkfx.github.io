@@ -1,7 +1,75 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
+
+const principles = [
+  ['Understand the runtime before abstracting it', 'An abstraction written over behaviour you have not watched is a guess with good syntax.'],
+  ['Keep state transitions and ownership explicit', 'Most interface bugs are really ownership questions nobody answered out loud.'],
+  ['Prefer small composable systems to central machinery', 'The centre is where every future feature request ends up. Keep it small enough to move.'],
+  ['Make failure modes visible and verification repeatable', 'A green check that nobody can reproduce is a decoration.'],
+  ['Use constraints to find the shape of the problem', 'Take something away and the real structure shows up in what breaks.'],
+];
+
+const stack = [
+  ['Interface', 'TypeScript / React / Next.js / Astro / Canvas / Sass / design systems'],
+  ['Systems', 'Rust / Go / Node.js / Tokio / REST / SSE / JSON-RPC / WebSockets'],
+  ['Delivery', 'Docker / GitHub Actions / Git / Python / SQL / PHP'],
+];
 ---
-<BaseLayout title="About — Sergey Baranov"><section class="about container"><p class="eyebrow">03 / About</p><h1 class="display">A developer who<br /><em>stays curious.</em></h1><div class="columns"><div><p class="lead">I’m Sergey, a web developer who likes the point where a product idea becomes a real, navigable thing.</p><p>I care about the connective tissue: the words, states, transitions, and technical decisions that make an interface feel obvious once it exists.</p></div><div class="facts"><span class="eyebrow">Currently useful with</span><p>TypeScript<br />Astro / Next.js<br />React<br />Node.js<br />Design systems<br />Data-heavy interfaces</p></div></div></section></BaseLayout>
+<BaseLayout title="About — Sergey Baranov" description="Sergey Baranov builds product interfaces and the runtime tooling underneath them — TypeScript on top, Rust and Go beneath.">
+  <section class="about container">
+    <p class="eyebrow">03 / About</p>
+    <h1 class="display">Interfaces, and<br /><em>what runs under them.</em></h1>
+
+    <div class="columns">
+      <div>
+        <p class="lead">I’m Sergey, a web developer who likes the point where a product idea becomes a real, navigable thing.</p>
+        <p>I care about the connective tissue: the words, states, transitions, and technical decisions that make an interface feel obvious once it exists. That has been the job since 2018 — charting platforms, financial data systems, product sites — mostly TypeScript, mostly React and its neighbours.</p>
+        <p>The last stretch has pulled me further down the stack. Coding agents made the runtime interesting again: how a credential gets routed, what a CLI should refuse to do, where a workflow can be made deterministic instead of merely confident. So there is Rust and Go in the recent work now, and the front end reads differently for it.</p>
+        <p>Same instinct either way. Take the thing apart until the boundaries are visible, then put back only what earns its place.</p>
+      </div>
+      <div class="facts">
+        <span class="eyebrow">Working hours</span>
+        <p class="fact-line">UTC+4</p>
+        <span class="eyebrow">Currently</span>
+        <p class="fact-line"><a href="/now/">See what’s on the decks ↗</a></p>
+        <span class="eyebrow">Interests</span>
+        <p class="fact-line">UI architecture<br />Rendering systems<br />Data interfaces<br />Browser runtime<br />Developer tooling</p>
+      </div>
+    </div>
+
+    <div class="principles rule">
+      <p class="eyebrow">How I work</p>
+      <ol>{principles.map(([title, note]) => <li><h2>{title}</h2><p>{note}</p></li>)}</ol>
+    </div>
+
+    <div class="stack rule">
+      <p class="eyebrow">Tools, roughly grouped</p>
+      <dl>{stack.map(([label, items]) => <div><dt>{label}</dt><dd>{items}</dd></div>)}</dl>
+    </div>
+
+    <div class="about-cta rule">
+      <p class="lead">Drawn to thoughtful products, difficult interfaces, and teams who care about the details.</p>
+      <a class="button button--solid" href="/contact/">Start a conversation</a>
+    </div>
+  </section>
+</BaseLayout>
 <style>
- .about{padding-block:8rem 12rem}.about h1{margin:1.5rem 0 7rem;font-size:clamp(4.5rem,11vw,11rem);line-height:.8}.columns{display:grid;grid-template-columns:1.2fr .8fr;gap:5rem;border-top:1px solid var(--rule);padding-top:2rem}.columns>div:first-child{max-width:38rem}.columns p{color:var(--fog);line-height:1.8}.lead{color:var(--paper)!important;font-size:1.45rem;line-height:1.45!important}.facts p{font:1rem/2 var(--mono);color:var(--paper)}@media(max-width:700px){.about{padding-block:5rem 8rem}.about h1{margin-bottom:4rem}.columns{grid-template-columns:1fr;gap:3rem}}
+ .about{padding-block:8rem 10rem}.about h1{margin:1.5rem 0 6rem;font-size:clamp(3.6rem,9vw,9rem);line-height:.84}.about h1 em{color:var(--club-pink);font-style:normal}
+ .columns{display:grid;grid-template-columns:1.2fr .8fr;gap:5rem;border-top:1px solid var(--rule);padding-top:2rem}
+ .columns>div:first-child{max-width:38rem}.columns p{color:var(--fog);line-height:1.8}
+ .lead{color:var(--paper)!important;font-size:1.45rem;line-height:1.45!important}
+ .facts .eyebrow{display:block;margin-top:2rem}.facts .eyebrow:first-child{margin-top:0}
+ .fact-line{margin:.6rem 0 0;font:1rem/1.9 var(--mono);color:var(--paper)!important}.fact-line a{color:var(--signal)}
+ .principles{margin-top:7rem;padding-top:2rem}
+ .principles ol{max-width:52rem;margin:2rem 0 0;padding:0;list-style:none;counter-reset:p}
+ .principles li{position:relative;padding:1.6rem 0 1.6rem 4rem;border-bottom:1px solid var(--rule);counter-increment:p}
+ .principles li::before{content:'0' counter(p);position:absolute;left:0;top:1.9rem;color:var(--signal);font:.7rem var(--mono)}
+ .principles h2{margin:0 0 .5rem;font:600 clamp(1.3rem,2.4vw,1.9rem)/1.15 var(--display);letter-spacing:-.035em}
+ .principles p{margin:0;color:var(--fog);line-height:1.7}
+ .stack{margin-top:5rem;padding-top:2rem}.stack dl{margin:2rem 0 0}
+ .stack dl>div{display:grid;grid-template-columns:10rem 1fr;gap:2rem;padding:1.1rem 0;border-bottom:1px solid var(--rule)}
+ .stack dt{color:var(--signal);font:.7rem var(--mono);letter-spacing:.1em;text-transform:uppercase}
+ .stack dd{margin:0;color:var(--fog);font:.95rem/1.7 var(--mono)}
+ .about-cta{margin-top:5rem;padding-top:3rem}.about-cta .button{margin-top:2rem}
+ @media(max-width:700px){.about{padding-block:5rem 7rem}.about h1{margin-bottom:4rem}.columns{grid-template-columns:1fr;gap:3rem}.principles{margin-top:4rem}.principles li{padding-left:3rem}.stack dl>div{grid-template-columns:1fr;gap:.5rem}}
 </style>

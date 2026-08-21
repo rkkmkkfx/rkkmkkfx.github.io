@@ -4,6 +4,20 @@ import SiteHeader from '../components/SiteHeader.astro';
 import SiteFooter from '../components/SiteFooter.astro';
 interface Props { title?: string; description?: string; }
 const { title = 'Sergey Baranov — Senior web developer', description = 'A senior web developer turning complex systems into clear, useful products.' } = Astro.props;
+const site = Astro.site ?? new URL('https://rkkmkkfx.dev');
+const canonical = new URL(Astro.url.pathname, site).href;
+const ogImage = new URL('/static/img/generated/play-stage-v2.png', site).href;
+const person = {
+  '@context': 'https://schema.org',
+  '@type': 'Person',
+  name: 'Sergey Baranov',
+  alternateName: 'rkkmkkfx',
+  jobTitle: 'Senior Web Developer',
+  url: 'https://rkkmkkfx.dev/',
+  email: 'mailto:hello@rkkmkkfx.dev',
+  knowsAbout: ['UI architecture', 'Rendering systems', 'Data interfaces', 'Browser runtime', 'Developer tooling'],
+  sameAs: ['https://github.com/rkkmkkfx', 'https://www.linkedin.com/in/rkkmkkfx/'],
+};
 ---
 <!doctype html>
 <html lang="en">
@@ -13,6 +27,24 @@ const { title = 'Sergey Baranov — Senior web developer', description = 'A seni
     <meta name="description" content={description} />
     <meta name="theme-color" content="#07090c" />
     <title>{title}</title>
+    <link rel="canonical" href={canonical} />
+    <link rel="icon" href="/static/favicon/favicon.ico" sizes="any" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/static/favicon/favicon-32x32.png" />
+    <link rel="icon" type="image/png" sizes="16x16" href="/static/favicon/favicon-16x16.png" />
+    <link rel="apple-touch-icon" href="/static/favicon/apple-touch-icon.png" />
+    <link rel="manifest" href="/static/favicon/site.webmanifest" />
+    <link rel="sitemap" href="/sitemap-index.xml" />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Sergey Baranov" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:image" content={ogImage} />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={ogImage} />
+    <script type="application/ld+json" set:html={JSON.stringify(person)} />
   </head>
   <body>
     <span class="scroll-progress" aria-hidden="true"></span>

@@ -1,0 +1,23 @@
+---
+title: Teaching a machine to build a DJ set
+date: 2026-06-17
+status: 'In progress'
+summary: 'A local-first set builder that reads BPM, key, and energy off your own library and sequences a night out of it — no audio leaves the machine.'
+tags: ['Python', 'Essentia', 'SwiftUI', 'Music']
+---
+
+This site is organised like a record: side A, tracklists, a sleeve for every project. That is not only a design conceit. Sequencing a DJ set is the same problem as sequencing an interface — you are deciding what the next thing has to do to the person on the receiving end, and you are constrained by what just happened.
+
+AIDeeJay analyses a local music folder and builds sets from it. Essentia does the signal work: BPM, key and scale, Camelot notation, loudness and dynamics, spectral and timbral features. A text-only model pass then labels each track with mood, relative energy from low to peak, and a role in a set — opener, builder, peak-tool, bridge, cooldown.
+
+Harmonic mixing is treated as important but not sacred. A non-harmonic transition is allowed when BPM, energy, and role justify it, because that is how the good ones actually work.
+
+## Local-first, on purpose
+
+No audio is uploaded anywhere. The analysis runs on the machine holding the library, and the output is a plain `library.jsonl` you can read, diff, and regenerate. There is now a SwiftUI companion that runs the same pipeline on device — scan a folder, analyse, build a set, export the library, the set, and an m3u8 playlist to app storage.
+
+## What it is really for
+
+The interesting part is not automating a set. It is that the analysis makes explicit what a DJ carries implicitly: this track is a bridge, that one is a peak tool, this pair only works because the energy is still climbing. Making a tacit judgment machine-readable is the same instinct that makes me pull apart a renderer — the goal is not the machine, it is the vocabulary you get afterwards.
+
+Both repositories are currently private.

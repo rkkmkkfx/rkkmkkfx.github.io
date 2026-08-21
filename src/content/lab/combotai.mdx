@@ -1,0 +1,23 @@
+---
+title: One prompt, whichever agent is installed
+date: 2026-03-24
+status: 'Exploring'
+summary: 'A small Go CLI that routes prompts to the agent binaries you already have, holding shared project state so you stop re-pasting context.'
+tags: ['Go', 'CLI', 'Agent tooling']
+---
+
+The tax of using more than one coding agent is context. You explain the project to Claude Code, then explain it again to Codex, then again to whatever you switched to when the first two hit a limit. The explanation is the same every time; only the binary changes.
+
+Combotai is a small Go CLI that removes the re-explaining. It runs the official agent binaries already installed and authenticated on your machine — no API keys, no cloud calls of its own, whatever subscription or browser OAuth each vendor uses stays theirs. What it adds is a shared state file the agents all read and write, so the project context lives in the repository rather than in whichever conversation you happen to be in.
+
+Run it bare and you get an interactive loop in failover-chain mode, configured from a single YAML file; name an agent and you get that one, alone.
+
+## What it deliberately is not
+
+It is not a clone of anyone's TUI. The vendor CLIs have good menus, slash commands, and tool panels, and reimplementing them would be both endless and worse. Combotai is for the case where you want shared state and a plain prompt-and-response loop, and it hands you back to the native CLI for everything else.
+
+That boundary is the whole design. The moment a router starts trying to be the thing it routes to, it inherits every feature request of everything downstream.
+
+## Status
+
+Two commits, a working orchestrator, and a release workflow that ships platform zips. It has been sitting at exploring since March — Hydra Agent is where the same question went next, with the routing pushed down to the provider layer instead of the CLI layer. The repository is currently private.

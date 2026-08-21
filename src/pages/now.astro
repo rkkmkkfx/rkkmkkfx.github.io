@@ -1,0 +1,82 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+
+const updated = new Date('2026-08-21');
+const rows = [
+  {
+    cue: 'NOW PLAYING',
+    title: 'Hydra Agent',
+    tone: 'signal',
+    note: 'A Rust CLI that routes one conversation across every coding-agent credential already on the machine. Provider routing, live model catalogs, failover bounded by the auth boundary.',
+    meta: 'Rust / Tokio / SSE',
+  },
+  {
+    cue: 'CUED UP',
+    title: 'Agent workflow skills',
+    tone: 'green',
+    note: 'Extending the verify and learn phases of the skill set — pushing more of an agent workflow onto exit codes and less onto the model saying it went fine.',
+    meta: 'Markdown / Shell / Git worktrees',
+  },
+  {
+    cue: 'CUED UP',
+    title: 'AIDeeJay on device',
+    tone: 'blue',
+    note: 'A local-first set builder moving from a Python analysis pipeline to a SwiftUI app that runs the whole thing on the phone. No audio leaves the device.',
+    meta: 'Python / Essentia / SwiftUI',
+  },
+];
+
+const questions = [
+  'How much of an agent workflow can be made deterministic before it stops being useful.',
+  'Where a router should stop — the moment it tries to be the thing it routes to, it inherits every feature request downstream.',
+  'What the browser runtime is actually doing under the interfaces I ship, and how little of it I usually need to know.',
+];
+---
+<BaseLayout title="Now — Sergey Baranov" description="What Sergey Baranov is building, thinking about, and listening to right now.">
+  <section class="intro container">
+    <p class="eyebrow">04 / Now</p>
+    <h1 class="display">What’s on<br /><em>the decks.</em></h1>
+    <p class="lead">A running snapshot of current work. Not an archive — when something ships or stalls, it comes off this page.</p>
+    <p class="stamp">Updated {updated.toLocaleDateString('en-US', { year: 'numeric', month: 'long' })} / working hours UTC+4</p>
+  </section>
+
+  <section class="deck container">
+    {rows.map((row, index) => (
+      <article class={`row row--${row.tone}`} data-reveal style={`--delay:${index * 90}ms`}>
+        <div class="row-top"><span class="cue">{row.cue}</span><span class="row-rule"></span><span class="meta">{row.meta}</span></div>
+        <h2 class="display">{row.title}</h2>
+        <p>{row.note}</p>
+      </article>
+    ))}
+  </section>
+
+  <section class="questions container rule">
+    <p class="eyebrow">Open questions</p>
+    <ol>{questions.map((question) => <li>{question}</li>)}</ol>
+  </section>
+
+  <section class="closing container rule">
+    <p class="eyebrow">Off the clock</p>
+    <p class="lead">Records, mostly. The DJ half of this site is not a metaphor — a set and an interface are the same problem: deciding what the next thing has to do to the person receiving it.</p>
+    <a class="text-link" href="/lab/">Read the B-sides <span>↗</span></a>
+  </section>
+</BaseLayout>
+<style>
+  .intro{padding-block:8rem 4rem}.intro h1{margin:1.5rem 0;font-size:clamp(4rem,10vw,10rem);line-height:.82}.intro em{color:var(--club-pink);font-style:normal}.lead{max-width:34rem;color:var(--fog);line-height:1.7}.stamp{margin-top:2rem;color:var(--signal);font:.65rem var(--mono);letter-spacing:.12em;text-transform:uppercase}
+  .deck{display:grid;gap:1rem;padding-bottom:5rem}
+  .row{padding:1.4rem;border:1px solid var(--rule);background:rgba(16,18,29,.55);transition:border-color .3s var(--ease),transform .4s var(--ease),background .3s var(--ease)}
+  .row:hover{transform:translateX(.5rem)}
+  .row--signal:hover{border-color:var(--club-pink);background:rgba(255,79,216,.06)}
+  .row--green:hover{border-color:var(--arcade-green);background:rgba(140,255,56,.05)}
+  .row--blue:hover{border-color:var(--console-blue);background:rgba(91,108,255,.06)}
+  .row-top{display:flex;align-items:center;gap:.7rem;font:.58rem var(--mono);letter-spacing:.1em;text-transform:uppercase}
+  .row--signal .cue{color:var(--club-pink)}.row--green .cue{color:var(--arcade-green)}.row--blue .cue{color:var(--console-blue)}
+  .row-rule{height:1px;flex:1;background:var(--rule)}.meta{color:var(--fog)}
+  .row h2{margin:1rem 0 .6rem;font-size:clamp(1.8rem,3.5vw,3rem);line-height:.9}
+  .row p{max-width:44rem;margin:0;color:var(--fog);font-size:.95rem;line-height:1.65}
+  .questions{padding-block:3rem 5rem}.questions ol{max-width:44rem;margin:2rem 0 0;padding:0;list-style:none;counter-reset:q}
+  .questions li{position:relative;padding:1.1rem 0 1.1rem 3rem;border-bottom:1px solid var(--rule);color:var(--fog);line-height:1.7;counter-increment:q}
+  .questions li::before{content:'0' counter(q);position:absolute;left:0;top:1.3rem;color:var(--signal);font:.7rem var(--mono)}
+  .closing{padding-block:3rem 10rem}.closing .lead{margin-top:1.5rem}.closing .text-link{display:inline-flex;gap:.7rem;align-items:center;margin-top:2rem;color:var(--fog);font:.72rem var(--mono);text-transform:uppercase;letter-spacing:.05em}.closing .text-link span{color:var(--signal)}
+  @media(max-width:700px){.intro{padding-block:5rem 3rem}.row:hover{transform:none}}
+</style>

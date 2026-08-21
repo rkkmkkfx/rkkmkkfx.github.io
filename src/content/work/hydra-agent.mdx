@@ -1,0 +1,34 @@
+---
+title: Hydra Agent
+year: 2026
+role: 'Rust CLI & agent runtime'
+summary: 'A terminal agent that routes one conversation across every coding-agent credential already installed on your machine.'
+outcome: 'Provider routing, live model catalogs, and automatic failover in a single Rust binary — no vendor CLI in the loop.'
+tags: ['Rust', 'Tokio', 'SSE', 'OAuth', 'Agent runtime']
+image: '/static/img/work/hydra-agent.svg'
+---
+## The problem
+
+Anyone doing serious work with coding agents ends up with five of them installed and five separate logins. Claude Code has a token. Codex has another. Antigravity, Qwen, Copilot, Cursor — each with its own store, its own model list, its own idea of what happens when you hit a rate limit. The credentials are all sitting on the same laptop, and none of them can see each other.
+
+Hydra treats that pile of credentials as one routable surface. It is a self-contained Rust CLI: a REPL with tab completion and fuzzy model pickers, talking to provider REST endpoints directly over `reqwest` and `tokio`, streaming responses back through SSE.
+
+## The work
+
+Three pieces carry most of the weight.
+
+**Discovery and source-linked auth.** Hydra scans for installed agents — environment variables, dotfile credential stores, the macOS Keychain — and can import an agent's login without taking it over. A source-linked import stores consent and provenance only; the current access credential is re-read from the original agent's store on every use, and the source agent's refresh token is never rotated. You can also hand Hydra its own credentials: a static API key, OAuth device code, or authorization code with PKCE.
+
+**Model catalogs and failover.** The model picker merges live provider API lists, a local cache, and a configured fallback chain, in that order. When a request comes back 429 or quota-exceeded, Hydra fails over to the next model in the chain — but only within the same auth boundary. Splicing one provider's credential onto another provider's request is the obvious shortcut and the wrong one, so the router refuses it.
+
+**Protocol adapters.** Most providers are reached as plain REST. Cursor is not: it is spoken to over ACP, with Hydra spawning `agent acp` and talking JSON-RPC across stdio. Skills already installed for other agents get discovered and made available too, so the tooling you have configured elsewhere does not have to be recreated here.
+
+## Technical note
+
+The interesting constraint was failure. An agent that quietly retries against the wrong credential, or silently downgrades your model, is worse than one that stops — you lose the ability to reason about what actually ran. So provenance is stored with every import, failover is bounded by the auth boundary rather than by convenience, and the fallback chain is a configuration file you can read rather than a heuristic buried in the router.
+
+Rust made that enforceable. Edition 2024, 1.85 and up; the type system does the work of keeping a credential from drifting into a request it does not belong to.
+
+## Where it stands
+
+Built in August 2026 — roughly a hundred and fifty commits over ten days, from first REPL to a working `/auth` flow inside the TUI. The repository is currently private.
