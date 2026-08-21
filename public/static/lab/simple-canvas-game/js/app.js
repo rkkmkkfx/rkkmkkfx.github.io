@@ -3,11 +3,9 @@
 function loadLevels() {
   return new Promise((done, fail) => {
     const xhr = new XMLHttpRequest();
-    let url = './levels.json';
-    if (location.hostname !== 'localhost') {
-      url = 'https://raw.githubusercontent.com/rkkmkkfx/simple-canvas-game/master/levels.json';
-    }
-    xhr.open('GET', url);
+    // Keep the playable study self-contained so local preview and deployment
+    // always use the same five levels.
+    xhr.open('GET', './levels.json');
     xhr.addEventListener('error', e => fail(xhr));
     xhr.addEventListener('load', e => {
       if (xhr.status !== 200) {
@@ -33,12 +31,14 @@ function elt(name, className) {
 }
 
 class DOMDisplay {
-  constructor(parent, level) {
+  constructor(parent, level, levelNumber, totalLevels) {
     this.wrap = parent.appendChild(elt("div", "game"));
     this.wrap.setAttribute('autofocus', true)
     this.level = level;
 
     this.actorMap = new Map();
+    this.levelLabel = this.wrap.appendChild(elt('div', 'level-label'));
+    this.levelLabel.textContent = `LEVEL ${String(levelNumber).padStart(2, '0')} / ${String(totalLevels).padStart(2, '0')}`;
     this.wrap.appendChild(this.drawBackground());
     this.actorLayer = this.wrap.appendChild(this.drawActors());
     this.drawFrame();
@@ -154,11 +154,11 @@ function runAnimation(frameFunc) {
   requestAnimationFrame(frame);
 }
 
-function runLevel(level, Display) {
+function runLevel(level, Display, levelNumber, totalLevels) {
   initGameObjects();
   return new Promise(done => {
     var arrows = trackKeys(arrowCodes);
-    var display = new Display(document.body, level);
+    var display = new Display(document.body, level, levelNumber, totalLevels);
     runAnimation(step => {
       level.act(step, arrows);
       display.drawFrame(step);
@@ -248,7 +248,7 @@ function initGameObjects() {
 function runGame(plans, Parser, Display) {
   return new Promise(done => {
     function startLevel(n) {
-      runLevel(Parser.parse(plans[n]), Display)
+      runLevel(Parser.parse(plans[n]), Display, n + 1, plans.length)
         .then(status => {
           if (status == "lost") {
             startLevel(n);
@@ -260,6 +260,65 @@ function runGame(plans, Parser, Display) {
         });
     }
     startLevel(0);
+  });
+}
+
+function createGameScreen(kind, onAction) {
+  var screen = elt('div', 'game-screen ' + kind);
+  var panel = screen.appendChild(elt('div', 'game-screen__panel'));
+  var eyebrow = panel.appendChild(elt('p', 'game-screen__eyebrow'));
+  eyebrow.textContent = kind === 'start' ? 'SIDE QUEST / 001' : 'RUN COMPLETE / 001';
+  var title = panel.appendChild(elt('h1', 'game-screen__title'));
+  title.textContent = kind === 'start' ? 'Tiny canvas\nside quest.' : 'You found\nthe signal.';
+  var copy = panel.appendChild(elt('p', 'game-screen__copy'));
+  copy.textContent = kind === 'start'
+    ? 'Collect every green node. Keep moving.\nThe level scrolls with you.'
+    : 'Every node collected. The little machine\nis ready for another run.';
+  var action = panel.appendChild(elt('button', 'game-screen__button'));
+  action.type = 'button';
+  action.textContent = kind === 'start' ? 'Start run  →' : 'Play again  ↗';
+  action.addEventListener('click', onAction);
+  var hint = panel.appendChild(elt('p', 'game-screen__hint'));
+  hint.innerHTML = kind === 'start'
+    ? '<span>← →</span> move &nbsp; <span>↑</span> jump &nbsp; <span>enter</span> start'
+    : '<span>enter</span> or click to reset the run';
+  document.body.appendChild(screen);
+  return screen;
+}
+
+function waitForStart() {
+  return new Promise(done => {
+    var screen = createGameScreen('start', finish);
+    function finish() {
+      screen.remove();
+      window.removeEventListener('keydown', keyHandler);
+      done();
+    }
+    function keyHandler(event) {
+      if (event.key === 'Enter' || event.key === ' ') {
+        event.preventDefault();
+        finish();
+      }
+    }
+    window.addEventListener('keydown', keyHandler);
+  });
+}
+
+function waitForReplay() {
+  return new Promise(done => {
+    var screen = createGameScreen('finish', finish);
+    function finish() {
+      screen.remove();
+      window.removeEventListener('keydown', keyHandler);
+      done();
+    }
+    function keyHandler(event) {
+      if (event.key === 'Enter' || event.key === ' ') {
+        event.preventDefault();
+        finish();
+      }
+    }
+    window.addEventListener('keydown', keyHandler);
   });
 }
 
