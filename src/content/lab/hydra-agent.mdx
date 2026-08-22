@@ -1,12 +1,11 @@
 ---
 title: Hydra Agent
-year: 2026
-role: 'Rust CLI & agent runtime'
+date: 2026-08-21
+status: 'In progress'
 summary: 'A terminal agent that routes one conversation across every coding-agent credential already installed on your machine.'
-outcome: 'Provider routing, live model catalogs, and automatic failover in a single Rust binary — no vendor CLI in the loop.'
 tags: ['Rust', 'Tokio', 'SSE', 'OAuth', 'Agent runtime']
-image: '/static/img/work/hydra-agent.svg'
 ---
+
 ## The problem
 
 Anyone doing serious work with coding agents ends up with five of them installed and five separate logins. Claude Code has a token. Codex has another. Antigravity, Qwen, Copilot, Cursor — each with its own store, its own model list, its own idea of what happens when you hit a rate limit. The credentials are all sitting on the same laptop, and none of them can see each other.
