@@ -1,17 +1,41 @@
 ---
-title: AnyChart
-year: 2020
-role: 'Web platform & frontend engineering'
-summary: 'A technical product site for a charting toolkit used by teams around the world.'
-outcome: 'Made a deep developer product easier to evaluate, understand, and start using.'
-tags: ['PHP', 'JavaScript', 'SCSS', 'Webpack']
+title: AnyChart Ecosystem
+year: 2026
+role: 'Web platform, frontend systems & technical direction (2020 — present)'
+summary: 'The whole web surface of a data-visualization company: product sites, a developer playground, a headless CMS, internal services, and the infrastructure under all of it.'
+outcome: 'One coherent platform out of twenty independent projects — modernized where it mattered, kept boring where it worked.'
+tags: ['Astro', 'Next.js', 'React', 'TypeScript', 'PHP', 'Strapi', 'Clojure', 'Ansible', 'Docker Swarm', 'Cloudflare']
 url: 'https://www.anychart.com'
 image: '/static/img/work/anychart.png'
 ---
 ## The work
 
-AnyChart is a product where the website has to do two jobs: explain the possibility of the toolkit and help a developer make a confident first move. The work connected documentation, examples, and product narrative into one coherent path.
+AnyChart is not one website. It is a charting toolkit with twenty years of history, and every year of that history left something on the web: a PHP marketing site, a Clojure playground, a Ghost blog, a Strapi CMS, static archives nobody is allowed to touch, and a fleet of internal services holding the seams together.
+
+My work is the whole surface. Not a redesign handed off at launch, but continuous ownership: deciding what gets rebuilt, what gets migrated, what gets left alone because it already works, and what has to be rewritten before it takes the rest of the platform down with it.
+
+## The surfaces
+
+**anychart.com** — the flagship product site. PHP with filesystem routing, a Gulp and Webpack asset pipeline, and a WordPress blog service running behind the same nginx. Old stack, deliberately kept: the content breadth is the product, and rewriting it would buy nothing a developer evaluating the toolkit would notice.
+
+**Qlik partner platform** — a Next.js and MUI application that grew past what it should have carried. I moved the entire public site to Astro with React islands, and left the Next.js app owning only the authenticated customer area. Same design system, same CMS, a fraction of the JavaScript on the pages that need to convert.
+
+**qlik-portal** — the Strapi headless CMS behind both sites. A Turborepo of three packages, forty-one content types, eight locales, and a build gate that fails the site build if any CMS-backed page loses its data. Content should not be able to break production silently.
+
+**playground.anychart.com** — a live code editor for chart samples, originally ClojureScript on a 2017 Leiningen stack that nobody could safely change. It is being rewritten in TypeScript — Fastify, React 19, CodeMirror 6 — as a parity migration with real fixtures, not a redesign. The old system stays live until the new one earns the traffic.
+
+**Chart samples and gallery** — a few hundred chart samples and the generator that renders, screenshots, and publishes them. Headless rendering at scale is unglamorous and full of traps; a blank-detection heuristic keyed on the wrong DOM node once deleted every valid preview in the gallery.
+
+**Internal services** — an SEO crawler, a Discord webhook proxy, a vacation scheduler, a v7-to-v8 migration tool, a Sentry webhook that routes production errors into an AI triage agent. Small Node and PHP services, each solving one real problem for the people who work here.
+
+**Infrastructure** — Ansible for the servers, Docker Swarm for the services, Cloudflare in front, GitHub Actions between. Every config change goes through Git; nothing is edited on a server. Commit message tags trigger the targeted deploy.
 
 ## Technical note
 
-The stack combined established server-rendered pages with a modern asset pipeline. The result was a site that could keep its content breadth without losing the speed and directness expected by developers.
+Two problems recur across all of it.
+
+The first is **cross-domain identity**. The platform spans a dozen subdomains with one identity provider behind them, and browsers have spent the last several years making that harder on purpose. Getting sign-in and sign-out to propagate correctly meant a cookie-and-beacon protocol built around `__Host-` prefixes and an explicit session epoch — not third-party cookies and hope.
+
+The second is **finding the actual cause**. A deploy that silently shipped nothing for two days turned out to be a Docker context left switched by a composite action, so `docker save` was reading images from the target server instead of the runner. A chart link serving the wrong library version was one clause of ordering in a database query. Neither symptom pointed anywhere near its cause, and both fixes were three lines.
+
+That is the honest shape of platform work: most of the value is in reading the system correctly before writing anything at all.
