@@ -1,0 +1,58 @@
+<!DOCTYPE html><html lang="en" data-astro-cid-z4jru4n3><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width"><meta name="description" content="A senior web developer turning complex systems into clear, useful products."><meta name="theme-color" content="#07090c"><title>Hydra Agent — Lab</title><link rel="canonical" href="https://rkkmkkfx.dev/lab/hydra-agent/"><link rel="icon" href="/static/favicon/favicon.ico" sizes="any"><link rel="icon" type="image/png" sizes="32x32" href="/static/favicon/favicon-32x32.png"><link rel="icon" type="image/png" sizes="16x16" href="/static/favicon/favicon-16x16.png"><link rel="apple-touch-icon" href="/static/favicon/apple-touch-icon.png"><link rel="manifest" href="/static/favicon/site.webmanifest"><link rel="sitemap" href="/sitemap-index.xml"><meta property="og:type" content="website"><meta property="og:site_name" content="Sergey Baranov"><meta property="og:title" content="Hydra Agent — Lab"><meta property="og:description" content="A senior web developer turning complex systems into clear, useful products."><meta property="og:url" content="https://rkkmkkfx.dev/lab/hydra-agent/"><meta property="og:image" content="https://rkkmkkfx.dev/static/img/generated/play-stage-v2.png"><meta name="twitter:card" content="summary_large_image"><meta name="twitter:title" content="Hydra Agent — Lab"><meta name="twitter:description" content="A senior web developer turning complex systems into clear, useful products."><meta name="twitter:image" content="https://rkkmkkfx.dev/static/img/generated/play-stage-v2.png"><script type="application/ld+json">{"@context":"https://schema.org","@type":"Person","name":"Sergey Baranov","alternateName":"rkkmkkfx","jobTitle":"Senior Web Developer","url":"https://rkkmkkfx.dev/","email":"mailto:hello@rkkmkkfx.dev","knowsAbout":["UI architecture","Rendering systems","Data interfaces","Browser runtime","Developer tooling"],"sameAs":["https://github.com/rkkmkkfx","https://www.linkedin.com/in/rkkmkkfx/"]}</script><link rel="stylesheet" href="/_astro/BaseLayout.DUKksc5S.css"><style>.note[data-astro-cid-pejiczag]{padding-block:3rem 12rem}.back[data-astro-cid-pejiczag]{color:var(--fog);font:.7rem var(--mono);text-transform:uppercase;margin-bottom:6rem;display:inline-block}.note[data-astro-cid-pejiczag] h1[data-astro-cid-pejiczag]{max-width:15ch;margin:1.5rem 0 6rem;font-size:clamp(4rem,10vw,10rem);line-height:.8}.prose[data-astro-cid-pejiczag]{max-width:45rem;font-size:1.25rem;line-height:1.75}.prose[data-astro-cid-pejiczag] p[data-astro-cid-pejiczag]{color:var(--fog)}.prose[data-astro-cid-pejiczag] a:not(.note-link){color:var(--signal);transition:color .25s var(--ease), text-decoration-color .25s var(--ease);font-weight:600;text-decoration:none}.prose[data-astro-cid-pejiczag] a:not(.note-link):hover{color:var(--paper);text-decoration:underline;text-decoration-color:var(--paper);text-underline-offset:.18em;text-decoration-thickness:2px}.prose[data-astro-cid-pejiczag] .note-link{color:var(--signal);font:.75rem var(--mono);text-transform:uppercase;margin-top:2rem;display:inline-block}.prose[data-astro-cid-pejiczag] .note-link:hover{color:var(--paper);text-underline-offset:.18em;text-decoration:underline}.prose[data-astro-cid-pejiczag] .repo-game{border:1px solid var(--signal);background:#090a0f;width:min(100%,722px);margin:3.5rem auto;box-shadow:12px 12px #ff4fd824}.prose[data-astro-cid-pejiczag] .repo-game iframe{border:0;width:100%;height:clamp(30rem,58vw,46rem);display:block}@media (width<=700px){.note[data-astro-cid-pejiczag]{padding-block:2rem 8rem}.back[data-astro-cid-pejiczag],.note[data-astro-cid-pejiczag] h1[data-astro-cid-pejiczag]{margin-bottom:4rem}}
+</style></head><body data-astro-cid-z4jru4n3><span class="scroll-progress" aria-hidden="true" data-astro-cid-z4jru4n3></span><a class="skip-link" href="#main" data-astro-cid-z4jru4n3>Skip to content</a><header class="header container" data-astro-cid-fzpbxy5g><a class="wordmark" href="/" aria-label="Sergey Baranov home" data-astro-cid-fzpbxy5g><span data-astro-cid-fzpbxy5g>SB</span><small data-astro-cid-fzpbxy5g>/ SIDE A</small></a><nav aria-label="Primary navigation" data-astro-cid-fzpbxy5g><a href="/work/" data-astro-cid-fzpbxy5g>Work</a><a class="active" href="/lab/" data-astro-cid-fzpbxy5g>Lab</a><a href="/now/" data-astro-cid-fzpbxy5g>Now</a><a href="/about/" data-astro-cid-fzpbxy5g>About</a></nav><a class="header-contact" href="/contact/" data-astro-cid-fzpbxy5g>Let’s talk <span data-astro-cid-fzpbxy5g>↗</span></a></header><main id="main" data-astro-cid-z4jru4n3><article class="note container" data-astro-cid-pejiczag><a class="back" href="/lab/" data-astro-cid-pejiczag>← Back to lab</a><p class="eyebrow" data-astro-cid-pejiczag>In progress / August 21, 2026</p><h1 class="display" data-astro-cid-pejiczag>Hydra Agent</h1><div class="prose" data-astro-cid-pejiczag><h2 id="the-problem">The problem</h2>
+<p>Anyone doing serious work with coding agents ends up with five of them installed and five separate logins. Claude Code has a token. Codex has another. Antigravity, Qwen, Copilot, Cursor — each with its own store, its own model list, its own idea of what happens when you hit a rate limit. The credentials are all sitting on the same laptop, and none of them can see each other.</p>
+<p>Hydra treats that pile of credentials as one routable surface. It is a self-contained Rust CLI: a REPL with tab completion and fuzzy model pickers, talking to provider REST endpoints directly over <code>reqwest</code> and <code>tokio</code>, streaming responses back through SSE.</p>
+<h2 id="the-work">The work</h2>
+<p>Three pieces carry most of the weight.</p>
+<p><strong>Discovery and source-linked auth.</strong> Hydra scans for installed agents — environment variables, dotfile credential stores, the macOS Keychain — and can import an agent’s login without taking it over. A source-linked import stores consent and provenance only; the current access credential is re-read from the original agent’s store on every use, and the source agent’s refresh token is never rotated. You can also hand Hydra its own credentials: a static API key, OAuth device code, or authorization code with PKCE.</p>
+<p><strong>Model catalogs and failover.</strong> The model picker merges live provider API lists, a local cache, and a configured fallback chain, in that order. When a request comes back 429 or quota-exceeded, Hydra fails over to the next model in the chain — but only within the same auth boundary. Splicing one provider’s credential onto another provider’s request is the obvious shortcut and the wrong one, so the router refuses it.</p>
+<p><strong>Protocol adapters.</strong> Most providers are reached as plain REST. Cursor is not: it is spoken to over ACP, with Hydra spawning <code>agent acp</code> and talking JSON-RPC across stdio. Skills already installed for other agents get discovered and made available too, so the tooling you have configured elsewhere does not have to be recreated here.</p>
+<h2 id="technical-note">Technical note</h2>
+<p>The interesting constraint was failure. An agent that quietly retries against the wrong credential, or silently downgrades your model, is worse than one that stops — you lose the ability to reason about what actually ran. So provenance is stored with every import, failover is bounded by the auth boundary rather than by convenience, and the fallback chain is a configuration file you can read rather than a heuristic buried in the router.</p>
+<p>Rust made that enforceable. Edition 2024, 1.85 and up; the type system does the work of keeping a credential from drifting into a request it does not belong to.</p>
+<h2 id="where-it-stands">Where it stands</h2>
+<p>Built in August 2026 — roughly a hundred and fifty commits over ten days, from first REPL to a working <code>/auth</code> flow inside the TUI. The repository is currently private.</p></div></article></main><footer class="footer container" data-astro-cid-nns7i3if><span data-astro-cid-nns7i3if>© 2026 Sergey Baranov</span><span data-astro-cid-nns7i3if>Built for the web / built to last</span><a href="mailto:hello@rkkmkkfx.dev" data-astro-cid-nns7i3if>hello@rkkmkkfx.dev ↗</a><button class="chaos-toggle" type="button" data-chaos-toggle aria-label="Toggle chaos mode" data-astro-cid-nns7i3if>rkkmkkfx // perturb</button></footer></body></html><script>
+  const root = document.documentElement;
+  const reveals = document.querySelectorAll('[data-reveal]');
+  const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (reduced) reveals.forEach((el) => el.classList.add('is-visible'));
+  else {
+    const observer = new IntersectionObserver((entries) => entries.forEach((entry) => {
+      if (entry.isIntersecting) { entry.target.classList.add('is-visible'); observer.unobserve(entry.target); }
+    }), { threshold: 0.12, rootMargin: '0px 0px -8% 0px' });
+    reveals.forEach((el) => observer.observe(el));
+  }
+  let raf = 0;
+  const phases = [
+    { key: 'boot', label: 'BOOT', description: 'loading intent' },
+    { key: 'map', label: 'MAP', description: 'shaping the system' },
+    { key: 'work', label: 'WORK', description: 'making it useful' },
+    { key: 'shipped', label: 'SHIPPED', description: 'in the hands of people' },
+  ];
+  const setPhase = (progress) => {
+    const phase = phases[Math.min(phases.length - 1, Math.floor(progress * phases.length))];
+    document.body.dataset.phase = phase.key;
+    document.querySelectorAll('[data-phase-label]').forEach((el) => { el.textContent = phase.label; });
+    document.querySelectorAll('[data-phase-description]').forEach((el) => { el.textContent = phase.description; });
+    document.querySelectorAll('[data-system-map]').forEach((el) => { el.dataset.phase = phase.key; });
+    document.dispatchEvent(new CustomEvent('portfolio:phase', { detail: phase.key }));
+  };
+  const updateScroll = () => {
+    raf = 0;
+    const max = document.documentElement.scrollHeight - window.innerHeight;
+    const progress = max > 0 ? window.scrollY / max : 0;
+    root.style.setProperty('--scroll-progress', progress.toFixed(3));
+    setPhase(progress);
+    document.querySelectorAll('[data-parallax]').forEach((el) => {
+      const box = el.getBoundingClientRect();
+      const amount = Math.max(-1, Math.min(1, (window.innerHeight / 2 - (box.top + box.height / 2)) / window.innerHeight));
+      el.style.setProperty('--parallax-y', `${(amount * 22).toFixed(1)}px`);
+    });
+  };
+  window.addEventListener('scroll', () => { if (!raf) raf = requestAnimationFrame(updateScroll); }, { passive: true });
+  updateScroll();
+  document.querySelector('[data-chaos-toggle]')?.addEventListener('click', () => {
+    document.body.toggleAttribute('data-chaos');
+    document.querySelector('[data-chaos-toggle]')?.setAttribute('aria-pressed', document.body.hasAttribute('data-chaos') ? 'true' : 'false');
+  });
+</script>
