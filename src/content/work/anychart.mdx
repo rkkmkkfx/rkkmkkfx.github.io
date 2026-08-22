@@ -18,15 +18,15 @@ My work is the whole surface. Not a redesign handed off at launch, but continuou
 
 **anychart.com** — the flagship product site. PHP with filesystem routing, a Gulp and Webpack asset pipeline, and a separate blog service behind the same edge. Old stack, deliberately kept: the content breadth is the product, and rewriting it would buy nothing a developer evaluating the toolkit would notice.
 
-**Qlik partner platform** — a Next.js and MUI application that grew past what it should have carried. I moved the entire public site to Astro with React islands, and left the Next.js app owning only the authenticated customer area. Same design system, same CMS, a fraction of the JavaScript on the pages that need to convert.
+**Partner platform** — a Next.js and MUI application that grew past what it should have carried. I moved the public site to Astro with React islands and left the Next.js app owning only the signed-in area. Same design system, same CMS, a fraction of the JavaScript on the pages that need to convert.
 
-**qlik-portal** — the Strapi headless CMS behind both sites. A Turborepo of three packages, forty-one content types, eight locales, and a build gate that fails the site build if any CMS-backed page loses its data. Content should not be able to break production silently.
+**The CMS** — a Strapi instance behind both sites, managed as a Turborepo, multi-locale, with a build gate that fails the site build if any CMS-backed page loses its data. Content should not be able to break production silently.
 
 **playground.anychart.com** — a live code editor for chart samples, originally a ClojureScript application on tooling that had drifted well past its useful life. It is being rewritten in TypeScript — Fastify, React 19, CodeMirror 6 — as a parity migration with real fixtures, not a redesign. The old system stays live until the new one earns the traffic.
 
 **Chart samples and gallery** — a few hundred chart samples and the generator that renders, screenshots, and publishes them. Headless rendering at scale is unglamorous and full of traps; a blank-detection heuristic keyed on the wrong DOM node will happily discard every valid preview it was meant to protect.
 
-**Internal services** — a crawler for SEO reporting, a scheduling tool, a version migration helper, and a handful of small notification and triage services. Small Node and PHP services, each solving one real problem for the people who work here.
+**Internal services** — a fleet of small Node and PHP tools, each one replacing something a person used to do by hand. None of them are interesting alone; together they are why the platform runs without anyone babysitting it.
 
 **Infrastructure** — Ansible for the servers, Docker Swarm for the services, Cloudflare in front, GitHub Actions between. Every config change goes through Git; nothing is edited on a server. Deploys are targeted per service and driven from the repository.
 
